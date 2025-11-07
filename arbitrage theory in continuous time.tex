@@ -1,0 +1,921 @@
+% !TeX program = xelatex
+\documentclass[12pt,openright,twoside]{book}
+
+% ===== 编码与语言 =====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+% \setotherlanguage{Chinese} % 不要写 chinese 小写, polyglossia 推荐首字母大写
+
+% ===== 字体(macOS 友好；跨平台可改 Noto)=====
+\setmainfont{Times New Roman}
+\setsansfont{Helvetica Neue}
+\setmonofont{Menlo}
+\setCJKmainfont{PingFang SC}[AutoFakeSlant=.2]
+\setCJKsansfont{PingFang SC}[AutoFakeSlant=.2]
+\setCJKmonofont{PingFang SC}[AutoFakeSlant=.2]
+
+% ===== 版面与微排 =====
+\usepackage[a4paper,margin=1in,headsep=18pt]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{microtype}
+
+% ===== 颜色 & 超链接 =====
+\usepackage[svgnames]{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=NavyBlue,
+  citecolor=NavyBlue,
+  urlcolor=NavyBlue,
+  pdfauthor={Translator},
+  pdftitle={Arbitrage Theory in Continuous Time — CN Translation}
+}
+
+% ===== 数学环境 =====
+\usepackage{amsmath,amssymb,mathtools}
+\numberwithin{equation}{chapter}
+
+\usepackage[capitalise,nameinlink,noabbrev]{cleveref}
+% 常用算子与符号
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pbb}{\mathbb{P}}
+\newcommand{\Qbb}{\mathbb{Q}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\1}{\mathbf{1}}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\Ito}{It\^{o}}
+
+% ===== 定理类(ntheorem 版)=====
+\usepackage[amsmath,thmmarks,framed]{ntheorem}
+\theoremstyle{plain}
+\theorembodyfont{\itshape}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theorembodyfont{\normalfont}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[chapter]
+
+% 无编号 proof(带方块结束符)
+\theoremstyle{nonumberplain}
+\theoremsymbol{\ensuremath{\square}}
+\newtheorem{proof}{Proof}
+
+% ===== 图表 =====
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{siunitx}
+\sisetup{detect-all}
+
+% ===== 参考文献(biber)=====
+\usepackage[backend=biber,style=authoryear,sorting=nyt,maxcitenames=2,maxbibnames=10,autolang=other]{biblatex}
+\addbibresource{bjork.bib}
+\DeclareLanguageMapping{chinese}{english}
+\DeclareLanguageMapping{Chinese}{english}
+
+% ===== 索引与术语表 =====
+\usepackage{imakeidx}
+\makeindex[title=Index,columns=2,intoc]
+
+\usepackage[toc,nonumberlist,acronym]{glossaries}
+\makeglossaries
+\newglossaryentry{wiener}{name={Wiener process},description={Standard Brownian motion}}
+\newacronym{hjm}{HJM}{Heath--Jarrow--Morton}
+
+% ===== 章标题与页眉页脚 =====
+\usepackage{titlesec}
+\titleformat{\chapter}{\Huge\bfseries}{\thechapter}{1em}{}
+\titlespacing*{\chapter}{0pt}{1ex plus .2ex}{2ex}
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RO,LE]{\thepage}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+\fancyhead[LO]{\nouppercase{\rightmark}}
+
+% ===== 自定义：章末 Exercises / Notes =====
+\newenvironment{chapterexercises}{
+  \section*{Exercises}\addcontentsline{toc}{section}{Exercises}
+}{}
+\newenvironment{chapternotes}{
+  \section*{Notes}\addcontentsline{toc}{section}{Notes}
+}{}
+
+% 可选：原文与译文并置时的辅助命令(审校阶段用)
+\newcommand{\orig}[1]{\begin{quote}\small\itshape #1\end{quote}}
+\newcommand{\trans}[1]{#1}
+
+% ===== 正文 =====
+\begin{document}
+
+\frontmatter
+\begin{titlepage}
+\centering
+{\Huge\bfseries Arbitrage Theory in Continuous Time\\[6pt]
+(连续时间套利理论·中文直译)\\[16pt]}
+{\large Tomas Björk \\[8pt]}
+{\large \textit{Translation Working Template}}\\[24pt]
+{\large Compiled with XeLaTeX}
+\vfill
+{\large \today}
+\end{titlepage}
+
+\tableofcontents
+
+\chapter*{Preface(译者说明)}
+本稿作为《Arbitrage Theory in Continuous Time》的中文直译模板. 为保证可编译性, 模板移除了所有非 TeX 符号占位, 并提供稳定的定理、交叉引用、参考文献、索引与术语表配置. 后续请直接把直译内容填入对应章节. 
+
+\mainmatter
+\setcounter{chapter}{5}
+% ========== Chapter 1 ==========
+\chapter{投资组合的动态}
+\section{引言}
+
+我们考虑一个金融市场, 该市场由不同的资产组成, 例如股票、不同期限的债券, 或者各种金融衍生品. 在本章中, 我们将给定这些资产的价格动态, 主要目标是推导所谓的\textbf{自融资投资组合}(self-financing portfolio)的(价值)动态. 
+
+在连续时间下, 这个问题相当复杂, 因此我们从离散时间模型开始研究. 随后, 我们将让时间步长 $\Delta t$ 逐渐趋于零, 从而得到连续时间的类比. 需要强调的是, 本节内容仅为动机与启发性的说明, 形式化的定义与理论将在下一节中给出. 
+
+设我们研究一个金融市场, 其中时间被划分为长度为 $\Delta t$ 的周期, 并且仅在离散时刻 $n\Delta t$($n=0,1,\ldots$)进行交易. 我们考虑固定周期 $[t,\,t+\Delta t]$. 这个周期(当然 $t = n\Delta t$ 对某个 $n$ 成立)以后称为“\textbf{第 $t$ 期}”. 在接下来的内容中, 我们假设所有资产都是股票, 这仅是为了语言表述上的方便. 
+
+\vspace{1em}
+\noindent\textbf{定义 6.1}~
+\begin{itemize}
+    \item $N$：不同类型股票的数量. 
+    \item $h_i(t)$：在区间 $[t,\,t+\Delta t]$ 内持有的第 $i$ 种股票的股数. 
+    \item $h(t)$：投资组合 $[h_1(t),\ldots,h_N(t)]$, 表示在第 $t$ 期持有的头寸. 
+    \item $c(t)$：在区间 $[t,\,t+\Delta t]$ 内每单位时间的消费支出额. 
+    \item $S_i(t)$：在第 $t$ 期时第 $i$ 种股票的单价. 
+    \item $V(t)$：第 $t$ 期时投资组合的价值. 
+\end{itemize}
+
+模型中的信息与决策结构如下：
+\begin{itemize}
+    \item 在时刻 $t$(即第 $t$ 期的\textbf{开始}), 我们从上一期 $t-\Delta t$ 带来一个“旧”投资组合 $h(t-\Delta t)=\{h_i(t-\Delta t),\,i=1,\ldots,N\}$. 
+    \item 在时刻 $t$, 我们可以观察到价格向量 $S(t) = (S_1(t), \ldots, S_N(t))$. 
+    \item 在时刻 $t$, 在观察到 $S(t)$ 之后, 我们选择一个新的投资组合 $h(t)$, 该组合将在第 $t$ 期内持有. 同时我们选择该期的消费率 $c(t)$. 二者 $h(t)$ 和 $c(t)$ 在该期内假定保持不变. 
+\end{itemize}
+
+\vspace{1em}
+\noindent\textbf{注记 6.1.1}~
+注意, 到目前为止, 我们只考虑\textbf{不支付股息的资产}. 带股息资产的情形稍微复杂一些, 由于它只会在第 16 章中使用, 我们在此略去其讨论. 详见第 6.3 节. 
+
+\vspace{0.5em}
+我们仅考虑所谓的\textbf{自融资投资组合–消费对} $(h,\,c)$, 即没有外生资金注入或提取的投资组合(当然不包括 $c$ 项的消费). 换句话说, 新的投资组合购买以及所有消费支出, 必须完全通过出售投资组合中原有资产来融资. 
+
+为开始分析, 我们注意到财富 $V(t)$, 即第 $t$ 期初的财富, 等于旧投资组合 $h(t-\Delta t)$ 按当前价格的价值. 因此有
+\begin{equation}
+V(t) = \sum_{i=1}^{N} h_i(t-\Delta t) S_i(t)
+      = h(t-\Delta t) S(t),
+\tag{6.1}
+\end{equation}
+其中我们使用了记号
+\[
+xy = \sum_{i=1}^{N} x_i y_i
+\]
+来表示 $\mathbb{R}^N$ 中的内积. 
+
+式 (6.1) 表明：在第 $t$ 期开始时, 我们的财富等于若将旧投资组合按今日价格全部卖出所得的金额. 我们可以将这笔资金用于两个目的：
+\begin{itemize}
+    \item 重新投资于新的投资组合 $h(t)$；
+    \item 在第 $t$ 期内以速率 $c(t)$ 进行消费. 
+\end{itemize}
+
+新的投资组合 $h(t)$(必须以今日价格买入)的成本为
+\[
+\sum_{i=1}^{N} h_i(t) S_i(t) = h(t) S(t),
+\]
+而消费速率 $c(t)$ 的成本为 $c(t)\Delta t$. 因此, 第 $t$ 期的预算方程可写为
+\begin{equation}
+h(t-\Delta t) S(t) = h(t) S(t) + c(t)\Delta t.
+\tag{6.2}
+\end{equation}
+
+若我们引入记号
+\[
+\Delta X(t) = X(t) - X(t-\Delta t),
+\]
+其中 $X$ 为任意过程, 则预算方程 (6.2) 可改写为
+\begin{equation}
+S(t)\Delta h(t) + c(t)\Delta t = 0.
+\tag{6.3}
+\end{equation}
+
+由于我们的目标是得到连续时间下的预算方程, 因此自然会想到令 $\Delta t \to 0$, 将式 (6.3) 写成形式化的表达式
+\[
+S(t)\,dh(t) + c(t)\,dt = 0.
+\]
+然而, 这种做法实际上是\textbf{错误的}, 理解其中的原因非常重要. 原因如下：
+
+\begin{itemize}
+    \item 所有随机微分都必须按伊藤(Itô)意义进行解释；
+    \item 伊藤积分 $\int g(t)\,dW(t)$ 被定义为如下和式的极限：
+    \[
+    \sum g(t_n)\,[W(t_{n+1}) - W(t_n)] ,
+    \]
+    其中关键在于 $W$ 的增量是\textbf{向前差分}(forward differences)；
+    \item 而在式 (6.3) 中, 我们使用的是\textbf{向后差分}(backward difference). 
+\end{itemize}
+
+为了得到伊藤型微分形式, 我们必须重新表述式 (6.3). 具体做法是：在左侧同时加上并减去项 $S(t-\Delta t)\Delta h(t)$, 于是预算方程变为
+\begin{equation}
+S(t-\Delta t)\Delta h(t) + \Delta S(t)\Delta h(t) + c(t)\Delta t = 0.
+\tag{6.4}
+\end{equation}
+
+现在, 我们终于可以令 $\Delta t \to 0$, 从式 (6.4) 得到
+\begin{equation}
+S(t)\,dh(t) + dh(t)\,dS(t) + c(t)\,dt = 0.
+\tag{6.5}
+\end{equation}
+
+再者, 令 $\Delta t \to 0$ 代入式 (6.1), 有
+\begin{equation}
+V(t) = h(t)S(t),
+\tag{6.6}
+\end{equation}
+若对该式取伊藤微分, 则得到
+\begin{equation}
+dV(t) = h(t)\,dS(t) + S(t)\,dh(t) + dS(t)\,dh(t).
+\tag{6.7}
+\end{equation}
+
+综上, 式 (6.7) 是描述任意投资组合动态的一般方程, 而式 (6.5) 是所有自融资投资组合所满足的预算方程. 将 (6.5) 代入 (6.7), 即可得到我们所需的结果：即自融资投资组合(财富)$V$ 的动态为
+\begin{equation}
+dV(t) = h(t)\,dS(t) - c(t)\,dt.
+\tag{6.8}
+\end{equation}
+
+特别地, 在不存在消费的情形下, 财富动态简化为
+\begin{equation}
+dV(t) = h(t)\,dS(t).
+\tag{6.9}
+\end{equation}
+
+\paragraph{注记 6.1.2}~
+式 (6.9) 的自然经济解释是：在没有外生收入的模型中, 财富的所有变化都源于资产价格的变化. 因此, 式 (6.8) 和 (6.9) 似乎是显而易见的, 有人可能认为我们的推导显得多余. 事实并非如此——
+当我们回忆起式 (6.8) 与 (6.9) 中的随机微分是按伊藤意义解释时, 就会意识到这一点. 特别重要的是, 在伊藤意义下, 积分变量的增量 $dS(t)$ 是\textbf{向前差分}. 如果我们选择用其他方式定义随机积分(例如采用\textbf{向后差分}, 事实上这是可行的), 则式 (6.8)–(6.9) 的形式外观将完全不同. 然而, \textbf{其本质内容}则保持不变. 
+
+\section{自融资投资组合}
+
+在完成上一节的推导之后, 我们自然会提出以下问题：
+\begin{enumerate}
+    \item 当我们令 $\Delta t \to 0$ 时, 该极限过程应在何种意义下解释？例如 $L^2$、$P$-a.s. 等？
+    \item 式 (6.8) 被认为描述了连续时间下自融资投资组合的动态, 但在“现实中”, 所谓“连续时间交易”究竟意味着什么？
+\end{enumerate}
+
+这些问题的答案在于：前面的推理仅具有启发性. 现在我们给出一个纯粹数学意义下的\textbf{定义}. 各概念的解释当然与前文一致. 
+
+\medskip
+\noindent\textbf{定义 6.2}~
+设给定 $N$ 维价格过程 $\{S(t);\,t \ge 0\}$. 
+\begin{enumerate}
+    \item \textbf{投资组合策略}(通常简称为投资组合)是任意 $\mathcal{F}^S_t$ 适应的 $N$ 维过程 $\{h(t);\,t \ge 0\}$. 
+    \item 若投资组合 $h$ 具有形式
+    \[
+    h(t) = h(t,\,S(t)),
+    \]
+    其中 $h : \mathbb{R}_+ \times \mathbb{R}^N \to \mathbb{R}^N$, 则称 $h$ 为\textbf{马尔可夫型}. 
+    \item 与投资组合 $h$ 对应的\textbf{价值过程} $V^h$ 定义为
+    \begin{equation}
+    V^h(t) = \sum_{i=1}^{N} h_i(t)\,S_i(t).
+    \tag{6.10}
+    \end{equation}
+    \item \textbf{消费过程}是任意 $\mathcal{F}^S_t$ 适应的一维过程 $\{c(t);\,t \ge 0\}$. 
+    \item 投资组合–消费对 $(h,\,c)$ 称为\textbf{自融资}, 若其价值过程 $V^h$ 满足条件
+    \begin{equation}
+    dV^h(t) = \sum_{i=1}^{N} h_i(t)\,dS_i(t) - c(t)\,dt
+    \tag{6.11}
+    \end{equation}
+\end{enumerate}
+
+即当且仅当
+\[
+dV^h(t) = h(t)\,dS(t) - c(t)\,dt.
+\]
+
+\paragraph{注记 6.2.1}~
+一般而言, 投资组合 $h(t)$ 可以依赖于整个过去的价格轨迹 $\{S(u);\,u \le t\}$. 在接下来的内容中, 我们几乎只讨论\textbf{马尔可夫型投资组合}, 即其在时刻 $t$ 的取值仅依赖于当前时点 $t$ 与当前的价格向量 $S(t)$. 
+
+在实际计算中, 通常更方便以相对形式而非绝对形式来描述投资组合. 换言之, 与其指定持有每种股票的绝对股数, 不如指定投资组合总价值中投资于该股票的\textbf{相对比例}. 
+
+\medskip
+\noindent\textbf{定义 6.3}~
+给定投资组合 $h$, 其对应的\textbf{相对投资组合} $u$ 定义为
+\begin{equation}
+u_i(t) = \frac{h_i(t)S_i(t)}{V^h(t)}, \quad i = 1, \ldots, N,
+\tag{6.12}
+\end{equation}
+其中满足
+\[
+\sum_{i=1}^{N} u_i(t) = 1.
+\]
+
+自融资条件可以很容易地用相对投资组合的形式改写如下. 
+
+\medskip
+\noindent\textbf{引理 6.4}~
+当且仅当
+\begin{equation}
+dV^h(t) = V^h(t) \sum_{i=1}^{N} u_i(t)\frac{dS_i(t)}{S_i(t)} - c(t)\,dt,
+\tag{6.13}
+\end{equation}
+投资组合–消费对 $(h,\,c)$ 是自融资的. 
+
+\medskip
+今后我们将需要以下稍具技术性的结果. 它大致说明：如果某个过程在形式上“看起来像”是自融资投资组合的价值过程, 那么它实际上确实是这样的价值过程. 
+
+\medskip
+\noindent\textbf{引理 6.5}~
+设 $c$ 为消费过程, 假设存在一个标量过程 $Z$ 与向量过程 $q = (q_1, \ldots, q_N)$, 使得
+\begin{equation}
+dZ(t) = Z(t) \sum_{i=1}^{N} q_i(t)\frac{dS_i(t)}{S_i(t)} - c(t)\,dt,
+\tag{6.14}
+\end{equation}
+并且
+\begin{equation}
+\sum_{i=1}^{N} q_i(t) = 1.
+\tag{6.15}
+\end{equation}
+定义投资组合 $h$ 为
+\begin{equation}
+h_i(t) = \frac{q_i(t)Z(t)}{S_i(t)}.
+\tag{6.16}
+\end{equation}
+
+由此, 价值过程 $V^h$ 由 $V^h = Z$ 给出, 因此 $(h,\,c)$ 是自融资的, 并且其对应的相对投资组合 $u$ 由 $u = q$ 给出. 
+
+\medskip
+\noindent\textbf{证明}~
+根据定义, 价值过程 $V^h$ 由 $V^h(t) = h(t)S(t)$ 给出, 因此由式 (6.15) 与 (6.16) 可得
+\begin{equation}
+V^h(t) = \sum_{i=1}^{N} h_i(t)S_i(t)
+       = \sum_{i=1}^{N} q_i(t)Z(t)
+       = Z(t)\sum_{i=1}^{N} q_i(t)
+       = Z(t).
+\tag{6.17}
+\end{equation}
+
+将式 (6.17) 代入 (6.16), 可得与 $h$ 对应的相对投资组合 $u$ 为 $u = q$.   
+再将式 (6.17) 与 (6.16) 代入 (6.14), 可得
+\[
+dV^h(t) = \sum_{i=1}^{N} h_i(t)\,dS_i(t) - c(t)\,dt,
+\]
+这表明 $(h,\,c)$ 为自融资投资组合. \qed
+
+\section{股息}
+
+本节内容仅在第 16 章中会再次使用. 我们重新考虑第 6.1 节的设定与记号, 但现在假设资产可能支付股息. 
+
+\medskip
+\noindent\textbf{定义 6.6}~
+设给定过程 $D_1(t), \ldots, D_N(t)$, 其中 $D_i(t)$ 表示在区间 $(0,\,t]$ 内, 每单位资产 $i$ 的持有者所获得的\textbf{累计股息}.   
+若 $D_i$ 具有形式
+\begin{equation}
+dD_i(t) = \delta_i(t)\,dt,
+\end{equation}
+其中 $\delta_i$ 为某个过程, 则称资产 $i$ 具有\textbf{连续股息收益率}(continuous dividend yield). 
+
+在区间 $(s,\,t]$ 内, 每单位资产 $i$ 的持有者所获股息为 $D_i(t) - D_i(s)$.   
+若其具有股息收益率形式, 则有
+\[
+D_i(t) = \int_0^t \delta_i(s)\,ds.
+\]
+
+我们假设所有股息过程都具有随机微分形式. 
+
+接下来推导自融资投资组合的动态. 与往常一样, 我们定义价值过程
+\[
+V(t) = h(t)S(t).
+\]
+
+当前情形与无股息情形的差异在于：预算方程 (6.2) 需要进行修正. 
+
+在当前时刻 $t$, 我们所能支配的资金包括两个部分：
+
+\begin{itemize}
+    \item 旧投资组合的价值, 照常为
+    \[
+    h(t-\Delta t)S(t). 
+    \]
+    \item 在区间 $(t-\Delta t,\,t]$ 内所获得的股息. 这部分为
+    \[
+    \sum_{i=1}^{N} h_i(t-\Delta t)\,[D_i(t) - D_i(t-\Delta t)] = h(t-\Delta t)\Delta D(t). 
+    \]
+\end{itemize}
+
+因此, 相关的预算方程为
+\begin{equation}
+h(t-\Delta t)S(t) + h(t-\Delta t)\Delta D(t) = h(t)S(t) + c(t)\Delta t. 
+\tag{6.18}
+\end{equation}
+
+按照与第 6.1 节相同的推理, 我们可得到自融资投资组合的动态为
+\[
+dV(t) = \sum_{i=1}^{N} h_i(t)\,dS_i(t)
+       + \sum_{i=1}^{N} h_i(t)\,dD_i(t)
+       - c(t)\,dt. 
+\]
+
+我们将其写为如下形式化定义. 
+
+\medskip
+\noindent\textbf{定义 6.7}~
+\begin{enumerate}
+    \item \textbf{价值过程} $V^h$ 定义为
+    \begin{equation}
+    V^h(t) = \sum_{i=1}^{N} h_i(t)\,S_i(t). 
+    \tag{6.19}
+    \end{equation}
+
+    \item \textbf{(向量值)收益过程} $G$ 定义为
+    \begin{equation}
+    G(t) = S(t) + D(t). 
+    \tag{6.20}
+    \end{equation}
+
+    \item 若投资组合–消费对 $(h,\,c)$ 满足
+    \begin{equation}
+    dV^h(t) = \sum_{i=1}^{N} h_i(t)\,dG_i(t) - c(t)\,dt, 
+    \tag{6.21}
+    \end{equation}
+    则称其为\textbf{自融资的}. 
+\end{enumerate}
+
+\medskip
+\noindent\textbf{引理 6.8}~
+用相对权重表述时, 自融资投资组合的动态可以写为
+\begin{equation}
+dV^h(t) = V(t)\cdot \sum_{i=1}^{N} u_i(t)\frac{dG_i(t)}{S_i(t)} - c(t)\,dt.
+\tag{6.22}
+\end{equation}
+
+\section{练习}
+
+\noindent\textbf{练习 6.1}~
+在带股息的情形下, 补全自融资投资组合动态推导的细节. 
+
+\medskip
+\noindent\textbf{解答 6.1}~
+从股息情形的离散期预算约束出发,
+\[
+h(t-\Delta t)S(t) + h(t-\Delta t)\Delta D(t) = h(t)S(t) + c(t)\Delta t,
+\]
+其中 $\Delta D(t) = D(t) - D(t-\Delta t)$. 为得到伊藤型微分, 在左侧加减 $S(t-\Delta t)\Delta h(t)$ 并整理得
+\[
+S(t-\Delta t)\Delta h(t) + \Delta S(t)\Delta h(t) + \Delta D(t)\,h(t-\Delta t) + c(t)\Delta t = 0.
+\]
+令 $\Delta t \to 0$ 并按伊藤意义取极限, 得到
+\[
+S(t)\,dh(t) + dh(t)\,dS(t) + h(t)\,dD(t) + c(t)\,dt = 0.
+\]
+另一方面, 投资组合价值为 $V(t) = h(t)S(t)$, 其伊藤微分为
+\[
+dV(t) = h(t)\,dS(t) + S(t)\,dh(t) + dS(t)\,dh(t).
+\]
+将上一式中的 $S(t)\,dh(t) + dS(t)\,dh(t)$ 用预算式替换, 得
+\[
+dV(t) = \sum_{i=1}^{N} h_i(t)\,dS_i(t) + \sum_{i=1}^{N} h_i(t)\,dD_i(t) - c(t)\,dt.
+\]
+记 $G(t) = S(t) + D(t)$, 则 $dG_i(t) = dS_i(t) + dD_i(t)$, 因而
+\[
+dV(t) = \sum_{i=1}^{N} h_i(t)\,dG_i(t) - c(t)\,dt.
+\]
+再用相对权重 $u_i(t) = \dfrac{h_i(t)S_i(t)}{V(t)}$ 表示 $h_i(t) = \dfrac{u_i(t)V(t)}{S_i(t)}$, 代入上式得到
+\[
+dV(t) = V(t)\sum_{i=1}^{N} u_i(t)\frac{dG_i(t)}{S_i(t)} - c(t)\,dt,
+\]
+即为式 (6.22). \qed
+
+% \begin{chapterexercises}
+% \begin{exercise}
+% (练习 6.1)
+% \end{exercise}
+% \begin{exercise}
+% (练习 1.2)
+% \end{exercise}
+% \end{chapterexercises}
+
+% \begin{chapternotes}
+% (Notes to Chapter 1)
+% \end{chapternotes}
+
+% ========== Chapter 2 ==========
+\chapter{套利定价}
+
+
+\section{引言}
+
+在本章中, 我们将研究前一章所建立的一般模型的一个特殊情形. 我们基本上遵循 Merton (1973) 的论证, 其仅需用到前几章所介绍的数学工具. 完整的讨论见第 10 章. 
+
+设想一个金融市场仅包含两种资产: 一种为无风险资产, 其价格过程为 $B$；另一种为股票, 其价格过程为 $S$. 那么, 什么是无风险资产呢？
+
+\medskip
+\noindent\textbf{定义 7.1}~
+若价格过程 $B$ 满足动态方程
+\begin{equation}
+dB(t) = r(t)B(t)\,dt,
+\tag{7.1}
+\end{equation}
+则称 $B$ 为\textbf{无风险资产}的价格过程, 其中 $r$ 为任意适应过程. 
+
+\medskip
+无风险资产的定义性质是, 它的动态中不含驱动布朗运动项. 由此可得
+\[
+\frac{dB(t)}{dt} = r(t)B(t),
+\]
+因此 $B$ 过程可写为
+\[
+B(t) = B(0)\exp\!\left(\int_0^t r(s)\,ds\right).
+\]
+
+对无风险资产的自然解释是: 它对应于具有(可能是随机的)短期利率 $r$ 的银行账户. 一种重要的特例是 $r$ 为确定常数的情形, 此时我们可以将 $B$ 解释为债券价格. 
+
+我们假设股票价格 $S$ 满足
+\begin{equation}
+dS(t) = S(t)\alpha(t, S(t))\,dt + S(t)\sigma(t, S(t))\,d\widetilde{W}(t),
+\tag{7.2}
+\end{equation}
+其中 $\widetilde{W}$ 是 Wiener 过程, $\alpha$ 与 $\sigma$ 为给定的确定性函数.   
+之所以使用 $\widetilde{W}$ 而非更简单的 $W$ 记号, 原因将在后文中说明. 函数 $\sigma$ 称为 $S$ 的\textbf{波动率}(volatility), 而 $\alpha$ 称为 $S$ 的\textbf{局部收益率}(local mean rate of return). 
+
+\paragraph{注记 7.1.1}~
+注意上文中所建模的风险资产价格 $S$ 与无风险资产 $B$ 的区别.   
+$B$ 的收益率形式上由下式给出：
+\[
+\frac{dB(t)}{B(t)\,dt} = r(t). 
+\]
+该量在局部意义下是确定的(locally deterministic), 即在时刻 $t$, 我们仅需观察当前的短期利率 $r(t)$ 便可完全知晓收益.   
+与之相比, 股票 $S$ 的收益率形式上为
+\[
+\frac{dS(t)}{S(t)\,dt} = \alpha(t, S(t)) + \sigma(t, S(t))\frac{d\widetilde{W}(t)}{dt}, 
+\]
+该量在时刻 $t$ 并不可观测. 它包含了两部分：$\alpha(t, S(t))$ 与 $\sigma(t, S(t))$ 均可在时刻 $t$ 观察到, 而“白噪声”项 $d\widetilde{W}(t)/dt$ 是随机的. 因此, 与无风险资产不同, 股票具有\textbf{随机收益率}(stochastic rate of return), 即使在无限小的时间尺度上也是如此. 
+
+上述模型的一个重要特例是 $r$、$\alpha$ 与 $\sigma$ 均为确定常数的情形. 这便是著名的\textbf{Black–Scholes 模型}. 
+
+\medskip
+\noindent\textbf{定义 7.2}~
+\textbf{Black–Scholes 模型}由两个资产组成, 其动态为
+\begin{align}
+dB(t) &= rB(t)\,dt, \tag{7.3}\\
+dS(t) &= \alpha S(t)\,dt + \sigma S(t)\,d\widetilde{W}(t), \tag{7.4}
+\end{align}
+其中 $r$、$\alpha$ 与 $\sigma$ 均为确定常数. 
+
+\section{或有权利与套利}
+
+我们以由式 (7.1)–(7.2) 给出的金融市场模型为基础, 进入本书的核心问题——\textbf{金融衍生品定价}.   
+稍后我们将给出严格的数学定义, 但首先介绍最重要的一种衍生品：\textbf{欧式看涨期权}. 
+
+\medskip
+\noindent\textbf{定义 7.3}~
+设标的资产为 $S$, 执行价格(或行权价)为 $K$, 到期时间(或行权日)为 $T$, 则欧式看涨期权定义如下：
+
+\begin{itemize}
+    \item 期权持有人在时刻 $T$ 有权以价格 $K$ 购买一股标的资产 $S$；
+    \item 期权持有人没有义务必须购买该资产；
+    \item 以价格 $K$ 购买标的资产的权利只能在确切时刻 $T$ 行使. 
+\end{itemize}
+
+需要注意的是, 执行价格 $K$ 与到期时间 $T$ 均在期权合约签订时确定, 对我们而言通常是在 $t=0$.   
+欧式看跌期权（European put option）与欧式看涨期权类似, 只是赋予持有人以预定执行价卖出标的资产的权利.   
+美式期权（American call option）则允许持有人在到期之前的任意时刻行使买入标的资产的权利. 
+
+所有这类合约的共同特点是：它们都完全以标的资产 $S$ 的价格来定义, 因此自然被称为\textbf{衍生品}或\textbf{或有权利}（derivative instruments or contingent claims）. 下面我们给出或有权利的形式化定义. 
+
+\medskip
+\noindent\textbf{定义 7.4}~
+设金融市场的价格过程为向量 $S$.   
+具有到期时间（或行权时间）$T$ 的\textbf{或有权利}（contingent claim）, 又称 $T$-claim, 是任意随机变量 $\mathcal{X} \in \mathcal{F}^S_T$.   
+若 $\mathcal{X}$ 具有形式
+\[
+\mathcal{X} = \Phi(S(T)), 
+\]
+则称其为\textbf{简单或有权利}（simple claim）. 函数 $\Phi$ 称为\textbf{合约函数}（contract function）. 
+
+\medskip
+这一定义的含义是：或有权利是一种合约, 规定其持有人在到期时刻 $T$ 将获得随机金额 $\mathcal{X}$（可能为正也可能为负）.   
+要求 $\mathcal{X} \in \mathcal{F}^S_T$ 的含义是：在时刻 $T$ 时, 这笔支付的金额是可以确定的. 
+
+我们可以看到, 欧式看涨期权即为一个简单的或有权利, 其合约函数为
+\[
+\Phi(x) = \max[x - K, 0]. 
+\]
+
+欧式看涨与看跌期权的合约函数图像可见于图 7.1–7.2.   
+显然, 或有权利（例如欧式期权）本身就是一种金融资产, 因此它在市场上必然具有价格.   
+该价格显然依赖于时间 $t$ 与标的资产价格 $S(t)$.   
+我们的核心问题是确定这一合约的“公允”价格. 我们用标准记号表示为
+\begin{equation}
+\Pi(t;\,\mathcal{X}),
+\tag{7.5}
+\end{equation}
+其中 $\Pi(t;\,\mathcal{X})$ 表示或有权利 $\mathcal{X}$ 的价格过程. 在简单或有权利的情形下, 我们有时也写作 $\Pi(t;\,\Phi)$. 
+
+在 $t=T$ 的情形下, 情况最为简单. 以下以欧式看涨期权为例说明：
+
+\begin{enumerate}
+    \item 若 $S(T) \ge K$, 则通过行使期权购买一股标的资产可获得确定利润. 此时需支付 $K$ 单位货币. 
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figure/fig7_1.png}
+    \caption{合约函数. 欧式看涨期权, $K = 100$}
+    \label{fig:7_1}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figure/fig7_2.png}
+    \caption{合约函数. 欧式看跌期权, $K = 100$}
+    \label{fig:7_2}
+\end{figure}
+
+然后, 我们立即在市场上以价格 $S(T)$ 卖出该资产, 从而获得净利润 $S(T) - K$ 单位货币. 
+
+\begin{enumerate}
+    \setcounter{enumi}{1}
+    \item 若 $S(T) < K$, 则期权没有任何价值. 
+\end{enumerate}
+
+因此, 我们可以得出, 在时刻 $T$, 期权唯一合理的价格 $\Pi(T)$ 为
+\begin{equation}
+\Pi(T) = \max[S(T) - K, 0]. 
+\tag{7.6}
+\end{equation}
+
+同理，对于更一般的或有权利 $\mathcal{X}$，我们有
+\begin{equation}
+\Pi(T; \mathcal{X}) = \mathcal{X},
+\tag{7.7}
+\end{equation}
+而在简单或有权利的特例中，
+\begin{equation}
+\Pi(T; \mathcal{X}) = \Phi(S(T))。
+\tag{7.8}
+\end{equation}
+
+然而，对于任意 $t < T$，要确定或有权利 $\mathcal{X}$ 的“正确”价格则并非显而易见。  
+事实上，似乎根本不存在所谓“正确”或“公允”的价格。  
+期权的价格（如同任何其他资产）当然是由市场（即期权市场）决定的，因此会受到多种因素的复杂影响，例如市场参与者的风险态度及其对未来股价的预期。  
+因此，令人极为惊讶的事实是：在相当温和的假设下，存在一个公式（即 Black–Scholes 公式），它能给出期权的唯一价格。  
+
+我们将作出的主要假设是市场在如下意义下是\textbf{有效的}：市场\textbf{不存在套利机会}（free of arbitrage possibilities）。  
+下面给出这一核心概念的形式化定义。
+
+\medskip
+\noindent\textbf{定义 7.5}~
+在一个金融市场上，若存在一个自融资投资组合 $h$ 满足
+\begin{align}
+V^h(0) &= 0, \tag{7.9}\\
+P(V^h(T) \ge 0) &= 1, \tag{7.10}\\
+P(V^h(T) > 0) &> 0, \tag{7.11}
+\end{align}
+则称市场上存在\textbf{套利机会}（arbitrage possibility）。
+
+若不存在满足以上条件的 $h$，则称市场\textbf{无套利}（arbitrage free）。
+
+\medskip
+套利机会本质上意味着：无需承担任何风险，即可从无中生有地赚取正金额的情形。  
+换言之，这相当于一台无风险赚钱机器，或者形象地说，是市场中的“免费午餐”。  
+我们将套利机会解释为市场严重定价错误的情形，而我们的主要假设是市场是有效的，即不存在套利机会。
+
+\medskip
+\noindent\textbf{假设 7.2.1}~
+我们假设价格过程 $\Pi(t)$ 满足：由 $(B(t), S(t), \Pi(t))$ 所构成的市场中不存在套利机会。
+
+\medskip
+一个自然的问题是：我们如何识别套利机会？  
+一般而言，这个问题的完整答案需要相当复杂的概率工具，熟悉读者可参见第 10 章。  
+幸运的是，这里一个部分性的结果已足以支撑我们后续的讨论。
+
+\noindent\textbf{命题 7.6}~
+假设存在一个自融资投资组合 $h$，其价值过程 $V^h$ 满足动态
+\begin{equation}
+dV^h(t) = k(t)V^h(t)\,dt,
+\tag{7.12}
+\end{equation}
+其中 $k$ 为适应过程。那么必须有 $k(t) = r(t)$ 对所有 $t$ 成立，否则市场中存在套利机会。
+
+\medskip
+\noindent\textbf{证明}~
+我们略述论证，并为简便起见，假设 $k$ 与 $r$ 为常数且 $k > r$。  
+此时我们可以以利率 $r$ 向银行借款，并立即将这笔钱投入到以利率 $k$ 增长的投资组合 $h$ 中。  
+因此在 $t=0$ 时净投资为零，而当 $t>0$ 时财富将为正。换言之，存在套利。  
+
+反之，若 $r > k$，则我们做空投资组合 $h$ 并将所得资金存入银行，同样产生套利。  
+对于非常数或随机的 $r$ 与 $k$，论证方式相同。 \qed
+
+\medskip
+上述结论的核心在于：若某投资组合的动态中不含布朗运动项，即为\textbf{局部无风险投资组合}（locally riskless portfolio），则该组合的收益率必须等于短期利率 $r$。  
+换言之，存在一个 $k$ 为收益率的投资组合 $h$，在实际意义上等价于拥有短期利率 $k$ 的银行账户。  
+我们可将该命题改述为：在无套利市场中，只能存在一个短期利率。
+
+\medskip
+现在我们回到或有权利 $\mathcal{X}$ 的价格过程 $\Pi(t; \mathcal{X})$ 的问题。  
+其核心思想如下：由于该权利的定义完全依赖于标的资产的价格过程，我们应当能用标的资产的价格来表达其价格。若市场无套利，则这种定价方式应与标的资产的价格动态保持一致。
+
+\medskip
+举一个简单的例子：在无套利市场中，欧式看涨期权的价格必须满足
+\[
+\Pi(t) \le S(t)。
+\]
+因为若期权价格高于标的股票本身，则任何理性投资者都不会购买期权，而会直接购买股票。  
+
+形式化地，假设在某时刻 $t$，有 $\Pi(t) > S(t)$。  
+此时我们卖出一个期权，将部分资金用于购买标的股票，剩余部分存入银行（即购买无风险资产）。  
+随后不再操作，直到时刻 $T$。  
+到期时，我们需向期权持有人支付 $\max[S(T) - K, 0]$，但这笔钱可通过卖出所持股票获得。  
+此时我们的最终财富为 $S(T) - \max[S(T) - K, 0]$，该值为正，再加上银行中获得的利息，总财富为正，因此构成套利。
+
+因此显然，无套利市场的要求将对价格过程 $\Pi(t; \mathcal{X})$ 的行为施加某些约束。
+% \begin{chapterexercises}
+% \begin{exercise}
+% (练习 2.1)
+% \end{exercise}
+% \begin{exercise}
+% (练习 2.2)
+% \end{exercise}
+% \end{chapterexercises}
+
+% \begin{chapternotes}
+% (Notes to Chapter 2)
+% \end{chapternotes}
+
+% ========== Chapter 3 ==========
+\chapter{The Fundamental Theorem of Asset Pricing}
+\section{Martingales and Change of Measure}
+\section{Equivalent Martingale Measures}
+\section{Discounted Asset Prices}
+\section{Completeness and Martingale Representation}
+\section{Uniqueness of the Risk-Neutral Measure}
+\section{Change of Numeraire}
+
+\begin{chapterexercises}
+\begin{exercise}
+(练习 3.1)
+\end{exercise}
+\begin{exercise}
+(练习 3.2)
+\end{exercise}
+\end{chapterexercises}
+
+\begin{chapternotes}
+(Notes to Chapter 3)
+\end{chapternotes}
+
+% ========== Chapter 4 ==========
+\chapter{Interest Rate Models}
+\section{Zero-Coupon Bonds}
+\section{The Short Rate and the Money Account}
+\section{The Vasicek and CIR Models}
+\section{Forward Rate and Yield Curve}
+\section{The Heath–Jarrow–Morton Framework}
+\section{Change of Numeraire for Bonds}
+
+\begin{chapterexercises}
+\begin{exercise}
+(练习 4.1)
+\end{exercise}
+\end{chapterexercises}
+
+\begin{chapternotes}
+(Notes to Chapter 4)
+\end{chapternotes}
+
+% ========== Chapter 5 ==========
+\chapter{Stochastic Calculus Background}
+\section{Wiener Process and Stochastic Integrals}
+\section{Itô’s Lemma}
+\section{Multi-dimensional Itô Formula}
+\section{Martingales and Quadratic Variation}
+\section{Stochastic Differential Equations}
+\section{Numerical Schemes: Euler and Milstein}
+
+\begin{chapterexercises}
+\begin{exercise}
+(练习 5.1)
+\end{exercise}
+\end{chapterexercises}
+
+\begin{chapternotes}
+(Notes to Chapter 5)
+\end{chapternotes}
+
+% ========== Chapter 6 ==========
+\chapter{Optimal Portfolios and the CAPM}
+\section{Mean–Variance Optimization}
+\section{The Capital Market Line}
+\section{The CAPM Relation}
+\section{Continuous-Time Portfolio Optimization}
+\section{The Merton Problem}
+\section{Consumption and Investment}
+
+\begin{chapterexercises}
+\begin{exercise}
+(练习 6.1)
+\end{exercise}
+\end{chapterexercises}
+
+\begin{chapternotes}
+(Notes to Chapter 6)
+\end{chapternotes}
+
+% ========== Chapter 7 ==========
+\chapter{Incomplete Markets}
+\section{Sources of Incompleteness}
+\section{Equivalent Martingale Measures in Incomplete Markets}
+\section{Utility-Based Pricing}
+\section{Mean–Variance Hedging}
+\section{Minimal Martingale Measure}
+\section{Examples and Applications}
+
+\begin{chapterexercises}
+\begin{exercise}
+(练习 7.1)
+\end{exercise}
+\end{chapterexercises}
+
+\begin{chapternotes}
+(Notes to Chapter 7)
+\end{chapternotes}
+
+% ========== Chapter 8 ==========
+\chapter{Foreign Exchange and Numeraire Change}
+\section{The FX Market and Forward Rates}
+\section{Change of Numeraire Technique}
+\section{Pricing Foreign Options}
+\section{Quanto and Currency Options}
+\section{Interest Rate Parity Revisited}
+
+\begin{chapterexercises}
+\begin{exercise}
+(练习 8.1)
+\end{exercise}
+\end{chapterexercises}
+
+\begin{chapternotes}
+(Notes to Chapter 8)
+\end{chapternotes}
+
+% ========== Chapter 9 ==========
+\chapter{Credit Risk and Defaultable Bonds}
+\section{Reduced Form Models}
+\section{Hazard Rate and Survival Probability}
+\section{Pricing Defaultable Zero-Coupon Bonds}
+\section{Credit Spreads}
+\section{Structural Models of Default}
+\section{Credit Derivatives}
+
+\begin{chapterexercises}
+\begin{exercise}
+(练习 9.1)
+\end{exercise}
+\end{chapterexercises}
+
+\begin{chapternotes}
+(Notes to Chapter 9)
+\end{chapternotes}
+
+% ========== Chapter 10 ==========
+\chapter{Appendices and Mathematical Tools}
+\section{Measure and Integration}
+\section{Probability Theory Basics}
+\section{Conditional Expectation and Martingales}
+\section{Stopping Times and Optional Sampling}
+\section{Itô’s Calculus Summary}
+\section{Useful Formulas}
+
+\begin{chapternotes}
+(General Mathematical Notes)
+\end{chapternotes}
+
+% ===== 索引与术语 =====
+\printglossary[title=List of Symbols]
+\printglossary[type=\acronymtype,title=Abbreviations]
+\printindex
+
+% ===== 参考文献 =====
+\backmatter
+\printbibliography
+\nocite{*}
+
+\end{document}
