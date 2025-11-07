@@ -21,7 +21,6 @@
 \usepackage{setspace}
 \onehalfspacing
 \usepackage{microtype}
-
 % ===== 颜色 & 超链接 =====
 \usepackage[svgnames]{xcolor}
 \usepackage{hyperref}
@@ -595,23 +594,23 @@ dS(t) &= \alpha S(t)\,dt + \sigma S(t)\,d\widetilde{W}(t), \tag{7.4}
 \end{itemize}
 
 需要注意的是, 执行价格 $K$ 与到期时间 $T$ 均在期权合约签订时确定, 对我们而言通常是在 $t=0$.   
-欧式看跌期权（European put option）与欧式看涨期权类似, 只是赋予持有人以预定执行价卖出标的资产的权利.   
-美式期权（American call option）则允许持有人在到期之前的任意时刻行使买入标的资产的权利. 
+欧式看跌期权(European put option)与欧式看涨期权类似, 只是赋予持有人以预定执行价卖出标的资产的权利.   
+美式期权(American call option)则允许持有人在到期之前的任意时刻行使买入标的资产的权利. 
 
-所有这类合约的共同特点是：它们都完全以标的资产 $S$ 的价格来定义, 因此自然被称为\textbf{衍生品}或\textbf{或有权利}（derivative instruments or contingent claims）. 下面我们给出或有权利的形式化定义. 
+所有这类合约的共同特点是：它们都完全以标的资产 $S$ 的价格来定义, 因此自然被称为\textbf{衍生品}或\textbf{或有权利}(derivative instruments or contingent claims). 下面我们给出或有权利的形式化定义. 
 
 \medskip
 \noindent\textbf{定义 7.4}~
 设金融市场的价格过程为向量 $S$.   
-具有到期时间（或行权时间）$T$ 的\textbf{或有权利}（contingent claim）, 又称 $T$-claim, 是任意随机变量 $\mathcal{X} \in \mathcal{F}^S_T$.   
+具有到期时间(或行权时间)$T$ 的\textbf{或有权利}(contingent claim), 又称 $T$-claim, 是任意随机变量 $\mathcal{X} \in \mathcal{F}^S_T$.   
 若 $\mathcal{X}$ 具有形式
 \[
 \mathcal{X} = \Phi(S(T)), 
 \]
-则称其为\textbf{简单或有权利}（simple claim）. 函数 $\Phi$ 称为\textbf{合约函数}（contract function）. 
+则称其为\textbf{简单或有权利}(simple claim). 函数 $\Phi$ 称为\textbf{合约函数}(contract function). 
 
 \medskip
-这一定义的含义是：或有权利是一种合约, 规定其持有人在到期时刻 $T$ 将获得随机金额 $\mathcal{X}$（可能为正也可能为负）.   
+这一定义的含义是：或有权利是一种合约, 规定其持有人在到期时刻 $T$ 将获得随机金额 $\mathcal{X}$(可能为正也可能为负).   
 要求 $\mathcal{X} \in \mathcal{F}^S_T$ 的含义是：在时刻 $T$ 时, 这笔支付的金额是可以确定的. 
 
 我们可以看到, 欧式看涨期权即为一个简单的或有权利, 其合约函数为
@@ -620,7 +619,7 @@ dS(t) &= \alpha S(t)\,dt + \sigma S(t)\,d\widetilde{W}(t), \tag{7.4}
 \]
 
 欧式看涨与看跌期权的合约函数图像可见于图 7.1–7.2.   
-显然, 或有权利（例如欧式期权）本身就是一种金融资产, 因此它在市场上必然具有价格.   
+显然, 或有权利(例如欧式期权)本身就是一种金融资产, 因此它在市场上必然具有价格.   
 该价格显然依赖于时间 $t$ 与标的资产价格 $S(t)$.   
 我们的核心问题是确定这一合约的“公允”价格. 我们用标准记号表示为
 \begin{equation}
@@ -662,91 +661,1134 @@ dS(t) &= \alpha S(t)\,dt + \sigma S(t)\,d\widetilde{W}(t), \tag{7.4}
 \tag{7.6}
 \end{equation}
 
-同理，对于更一般的或有权利 $\mathcal{X}$，我们有
+同理, 对于更一般的或有权利 $\mathcal{X}$, 我们有
 \begin{equation}
 \Pi(T; \mathcal{X}) = \mathcal{X},
 \tag{7.7}
 \end{equation}
-而在简单或有权利的特例中，
+而在简单或有权利的特例中, 
 \begin{equation}
-\Pi(T; \mathcal{X}) = \Phi(S(T))。
+\Pi(T; \mathcal{X}) = \Phi(S(T)). 
 \tag{7.8}
 \end{equation}
 
-然而，对于任意 $t < T$，要确定或有权利 $\mathcal{X}$ 的“正确”价格则并非显而易见。  
-事实上，似乎根本不存在所谓“正确”或“公允”的价格。  
-期权的价格（如同任何其他资产）当然是由市场（即期权市场）决定的，因此会受到多种因素的复杂影响，例如市场参与者的风险态度及其对未来股价的预期。  
-因此，令人极为惊讶的事实是：在相当温和的假设下，存在一个公式（即 Black–Scholes 公式），它能给出期权的唯一价格。  
+然而, 对于任意 $t < T$, 要确定或有权利 $\mathcal{X}$ 的“正确”价格则并非显而易见.   
+事实上, 似乎根本不存在所谓“正确”或“公允”的价格.   
+期权的价格(如同任何其他资产)当然是由市场(即期权市场)决定的, 因此会受到多种因素的复杂影响, 例如市场参与者的风险态度及其对未来股价的预期.   
+因此, 令人极为惊讶的事实是：在相当温和的假设下, 存在一个公式(即 Black–Scholes 公式), 它能给出期权的唯一价格.   
 
-我们将作出的主要假设是市场在如下意义下是\textbf{有效的}：市场\textbf{不存在套利机会}（free of arbitrage possibilities）。  
-下面给出这一核心概念的形式化定义。
+我们将作出的主要假设是市场在如下意义下是\textbf{有效的}：市场\textbf{不存在套利机会}(free of arbitrage possibilities).   
+下面给出这一核心概念的形式化定义. 
 
 \medskip
 \noindent\textbf{定义 7.5}~
-在一个金融市场上，若存在一个自融资投资组合 $h$ 满足
+在一个金融市场上, 若存在一个自融资投资组合 $h$ 满足
 \begin{align}
 V^h(0) &= 0, \tag{7.9}\\
 P(V^h(T) \ge 0) &= 1, \tag{7.10}\\
 P(V^h(T) > 0) &> 0, \tag{7.11}
 \end{align}
-则称市场上存在\textbf{套利机会}（arbitrage possibility）。
+则称市场上存在\textbf{套利机会}(arbitrage possibility). 
 
-若不存在满足以上条件的 $h$，则称市场\textbf{无套利}（arbitrage free）。
+若不存在满足以上条件的 $h$, 则称市场\textbf{无套利}(arbitrage free). 
 
 \medskip
-套利机会本质上意味着：无需承担任何风险，即可从无中生有地赚取正金额的情形。  
-换言之，这相当于一台无风险赚钱机器，或者形象地说，是市场中的“免费午餐”。  
-我们将套利机会解释为市场严重定价错误的情形，而我们的主要假设是市场是有效的，即不存在套利机会。
+套利机会本质上意味着：无需承担任何风险, 即可从无中生有地赚取正金额的情形.   
+换言之, 这相当于一台无风险赚钱机器, 或者形象地说, 是市场中的“免费午餐”.   
+我们将套利机会解释为市场严重定价错误的情形, 而我们的主要假设是市场是有效的, 即不存在套利机会. 
 
 \medskip
 \noindent\textbf{假设 7.2.1}~
-我们假设价格过程 $\Pi(t)$ 满足：由 $(B(t), S(t), \Pi(t))$ 所构成的市场中不存在套利机会。
+我们假设价格过程 $\Pi(t)$ 满足：由 $(B(t), S(t), \Pi(t))$ 所构成的市场中不存在套利机会. 
 
 \medskip
 一个自然的问题是：我们如何识别套利机会？  
-一般而言，这个问题的完整答案需要相当复杂的概率工具，熟悉读者可参见第 10 章。  
-幸运的是，这里一个部分性的结果已足以支撑我们后续的讨论。
+一般而言, 这个问题的完整答案需要相当复杂的概率工具, 熟悉读者可参见第 10 章.   
+幸运的是, 这里一个部分性的结果已足以支撑我们后续的讨论. 
 
 \noindent\textbf{命题 7.6}~
-假设存在一个自融资投资组合 $h$，其价值过程 $V^h$ 满足动态
+假设存在一个自融资投资组合 $h$, 其价值过程 $V^h$ 满足动态
 \begin{equation}
 dV^h(t) = k(t)V^h(t)\,dt,
 \tag{7.12}
 \end{equation}
-其中 $k$ 为适应过程。那么必须有 $k(t) = r(t)$ 对所有 $t$ 成立，否则市场中存在套利机会。
+其中 $k$ 为适应过程. 那么必须有 $k(t) = r(t)$ 对所有 $t$ 成立, 否则市场中存在套利机会. 
 
 \medskip
 \noindent\textbf{证明}~
-我们略述论证，并为简便起见，假设 $k$ 与 $r$ 为常数且 $k > r$。  
-此时我们可以以利率 $r$ 向银行借款，并立即将这笔钱投入到以利率 $k$ 增长的投资组合 $h$ 中。  
-因此在 $t=0$ 时净投资为零，而当 $t>0$ 时财富将为正。换言之，存在套利。  
+我们略述论证, 并为简便起见, 假设 $k$ 与 $r$ 为常数且 $k > r$.   
+此时我们可以以利率 $r$ 向银行借款, 并立即将这笔钱投入到以利率 $k$ 增长的投资组合 $h$ 中.   
+因此在 $t=0$ 时净投资为零, 而当 $t>0$ 时财富将为正. 换言之, 存在套利.   
 
-反之，若 $r > k$，则我们做空投资组合 $h$ 并将所得资金存入银行，同样产生套利。  
-对于非常数或随机的 $r$ 与 $k$，论证方式相同。 \qed
-
-\medskip
-上述结论的核心在于：若某投资组合的动态中不含布朗运动项，即为\textbf{局部无风险投资组合}（locally riskless portfolio），则该组合的收益率必须等于短期利率 $r$。  
-换言之，存在一个 $k$ 为收益率的投资组合 $h$，在实际意义上等价于拥有短期利率 $k$ 的银行账户。  
-我们可将该命题改述为：在无套利市场中，只能存在一个短期利率。
+反之, 若 $r > k$, 则我们做空投资组合 $h$ 并将所得资金存入银行, 同样产生套利.   
+对于非常数或随机的 $r$ 与 $k$, 论证方式相同.  \qed
 
 \medskip
-现在我们回到或有权利 $\mathcal{X}$ 的价格过程 $\Pi(t; \mathcal{X})$ 的问题。  
-其核心思想如下：由于该权利的定义完全依赖于标的资产的价格过程，我们应当能用标的资产的价格来表达其价格。若市场无套利，则这种定价方式应与标的资产的价格动态保持一致。
+上述结论的核心在于：若某投资组合的动态中不含布朗运动项, 即为\textbf{局部无风险投资组合}(locally riskless portfolio), 则该组合的收益率必须等于短期利率 $r$.   
+换言之, 存在一个 $k$ 为收益率的投资组合 $h$, 在实际意义上等价于拥有短期利率 $k$ 的银行账户.   
+我们可将该命题改述为：在无套利市场中, 只能存在一个短期利率. 
 
 \medskip
-举一个简单的例子：在无套利市场中，欧式看涨期权的价格必须满足
+现在我们回到或有权利 $\mathcal{X}$ 的价格过程 $\Pi(t; \mathcal{X})$ 的问题.   
+其核心思想如下：由于该权利的定义完全依赖于标的资产的价格过程, 我们应当能用标的资产的价格来表达其价格. 若市场无套利, 则这种定价方式应与标的资产的价格动态保持一致. 
+
+\medskip
+举一个简单的例子：在无套利市场中, 欧式看涨期权的价格必须满足
 \[
-\Pi(t) \le S(t)。
+\Pi(t) \le S(t). 
 \]
-因为若期权价格高于标的股票本身，则任何理性投资者都不会购买期权，而会直接购买股票。  
+因为若期权价格高于标的股票本身, 则任何理性投资者都不会购买期权, 而会直接购买股票.   
 
-形式化地，假设在某时刻 $t$，有 $\Pi(t) > S(t)$。  
-此时我们卖出一个期权，将部分资金用于购买标的股票，剩余部分存入银行（即购买无风险资产）。  
-随后不再操作，直到时刻 $T$。  
-到期时，我们需向期权持有人支付 $\max[S(T) - K, 0]$，但这笔钱可通过卖出所持股票获得。  
-此时我们的最终财富为 $S(T) - \max[S(T) - K, 0]$，该值为正，再加上银行中获得的利息，总财富为正，因此构成套利。
+形式化地, 假设在某时刻 $t$, 有 $\Pi(t) > S(t)$.   
+此时我们卖出一个期权, 将部分资金用于购买标的股票, 剩余部分存入银行(即购买无风险资产).   
+随后不再操作, 直到时刻 $T$.   
+到期时, 我们需向期权持有人支付 $\max[S(T) - K, 0]$, 但这笔钱可通过卖出所持股票获得.   
+此时我们的最终财富为 $S(T) - \max[S(T) - K, 0]$, 该值为正, 再加上银行中获得的利息, 总财富为正, 因此构成套利. 
 
-因此显然，无套利市场的要求将对价格过程 $\Pi(t; \mathcal{X})$ 的行为施加某些约束。
+因此显然, 无套利市场的要求将对价格过程 $\Pi(t; \mathcal{X})$ 的行为施加某些约束. 这当然并不令人惊讶. 真正令人惊讶的是, 在由式 (7.1)–(7.2) 所定义的市场中, 这些约束条件竟然强大到足以完全确定——  
+对于任意给定的或有权利 $\mathcal{X}$, 存在一个唯一的价格过程 $\Pi(t;\mathcal{X})$, 其形式与无套利条件一致.   
+对于简单或有权利的形式化论证将于下一节给出, 这里先说明其总体思路. 
+
+首先, 合理的假设是, 时刻 $t$ 的价格 $\Pi(t;\mathcal{X})$ 在某种意义上由对未来股票价格 $S(T)$ 的预期所决定.   
+由于 $S$ 是马尔可夫过程, 这样的预期自然取决于价格过程当前的取值, 而非整个轨迹.   
+因此我们作如下假设. 
+
+\medskip
+\noindent\textbf{假设 7.2.2}~
+我们假设：
+\begin{enumerate}
+    \item 该衍生品可在市场上买卖；
+    \item 市场无套利；
+    \item 衍生品的价格过程形式为
+    \begin{equation}
+    \Pi(t;\mathcal{X}) = F(t, S(t)), 
+    \tag{7.13}
+    \end{equation}
+    其中 $F$ 为某个光滑函数. 
+\end{enumerate}
+
+我们的任务是确定当市场由 $S(t)$、$B(t)$ 和 $\Pi(t;\mathcal{X})$ 组成且无套利时, 函数 $F$ 的形式.   
+大致步骤如下：
+
+\begin{enumerate}
+    \item 将 $\alpha$、$\sigma$、$\Phi$、$F$ 与 $r$ 视为外生给定；
+    \item 利用第 6.2 节的一般结果, 描述一个假想的自融资投资组合的动态, 其基于衍生品与股票的价值(不实际投资或借款)；
+    \item 通过适当的组合, 我们可以构造一个其价值过程的随机微分方程中不含布朗运动项的自融资投资组合. 其形式将为式 (7.12)；
+    \item 由于市场无套利, 我们必须有 $k = r$；
+    \item 条件 $k = r$ 将导致一个偏微分方程(PDE), 其中未知函数为 $F$. 若市场有效, 则 $F$ 必须满足此 PDE；
+    \item 该方程有唯一解, 从而给出唯一的衍生品定价公式, 与无套利条件相一致. 
+\end{enumerate}
+
+\section{Black–Scholes 方程}
+
+在本节中, 我们将完整推导上一节的概要性论证.   
+我们假设市场由两个资产组成, 其动态为
+\begin{align}
+dB(t) &= rB(t)\,dt, \tag{7.14}\\
+dS(t) &= S(t)\alpha(t, S(t))\,dt + S(t)\sigma(t, S(t))\,d\widetilde{W}(t), \tag{7.15}
+\end{align}
+其中 $\widetilde{W}$ 为 Wiener 过程. 假设短期利率 $r$ 为确定常数. 我们考虑一个形式为
+\begin{equation}
+\mathcal{X} = \Phi(S(T))
+\tag{7.16}
+\end{equation}
+的简单或有权利. 假设该权利可在市场上交易, 其价格过程 $\Pi(t) = \Pi(t; \Phi)$ 具有形式
+\begin{equation}
+\Pi(t) = F(t, S(t)), 
+\tag{7.17}
+\end{equation}
+其中 $F$ 为光滑函数.   
+我们的目标是找出 $F$ 必须满足的形式, 使得由 $[S(t), B(t), \Pi(t)]$ 组成的市场无套利. 
+
+\medskip
+首先, 我们计算衍生资产价格的动态. 对式 (7.17) 与 (7.15) 应用伊藤公式, 可得
+\begin{equation}
+d\Pi(t) = \alpha_{\pi}(t)\Pi(t)\,dt + \sigma_{\pi}(t)\Pi(t)\,d\widetilde{W}(t), 
+\tag{7.18}
+\end{equation}
+其中过程 $\alpha_{\pi}(t)$ 与 $\sigma_{\pi}(t)$ 定义为
+\begin{align}
+\alpha_{\pi}(t) &= \frac{F_t + \alpha S F_S + \tfrac{1}{2}\sigma^2 S^2 F_{SS}}{F}, \tag{7.19}\\
+\sigma_{\pi}(t) &= \frac{\sigma S F_S}{F}.  \tag{7.20}
+\end{align}
+
+下标表示偏导数, 我们采用了如下简写形式：
+\[
+\frac{\sigma S F_S}{F} = \frac{\sigma(t, S(t))\,S(t)\,F_S(t, S(t))}{F(t, S(t))}, 
+\]
+其他项的写法类似. 
+
+\medskip
+现在我们构造一个由两种资产组成的投资组合：标的股票与衍生品.   
+记相对投资组合为 $(u_S, u_{\pi})$, 根据式 (6.13), 可得投资组合价值 $V$ 的动态：
+\begin{align}
+dV &= V\Big\{u_S[\alpha\,dt + \sigma\,d\widetilde{W}] + u_{\pi}[\alpha_{\pi}\,dt + \sigma_{\pi}\,d\widetilde{W}]\Big\} \tag{7.21}\\
+   &= V\Big[u_S\alpha + u_{\pi}\alpha_{\pi}\Big]dt + V\Big[u_S\sigma + u_{\pi}\sigma_{\pi}\Big]d\widetilde{W}.  \tag{7.22}
+\end{align}
+
+这里省略了对 $t$ 的依赖.   
+需要注意的是, 上式中两个括号均线性依赖于参数 $u_S$ 与 $u_{\pi}$.   
+此外, 回忆相对投资组合唯一的约束条件为：
+\[
+u_S + u_{\pi} = 1. 
+\]
+对于所有 $t$, 我们定义相对投资组合满足以下线性方程组：
+\begin{align}
+u_S + u_{\pi} &= 1, \tag{7.23}\\
+u_S\sigma + u_{\pi}\sigma_{\pi} &= 0.  \tag{7.24}
+\end{align}
+
+利用这样的投资组合, 由于其定义方式, 式 (7.22) 中的 $d\widetilde{W}$ 项完全消失,   
+因此投资组合的动态为
+\begin{equation}
+dV = V[u_S\alpha + u_{\pi}\alpha_{\pi}]\,dt. 
+\tag{7.25}
+\end{equation}
+
+我们由此得到一个\textbf{局部无风险投资组合}.   
+由于市场要求无套利, 根据命题 7.6, 可得
+\begin{equation}
+u_S\alpha + u_{\pi}\alpha_{\pi} = r. 
+\tag{7.26}
+\end{equation}
+这就是无套利条件. 接下来我们更仔细地研究该方程. 
+
+很容易看出, 方程组 (7.23)–(7.24) 的解为
+\begin{align}
+u_S &= \frac{\sigma_{\pi}}{\sigma_{\pi} - \sigma}, \tag{7.27}\\
+u_{\pi} &= \frac{-\sigma}{\sigma_{\pi} - \sigma}.  \tag{7.28}
+\end{align}
+
+由式 (7.20) 可进一步将投资组合表示得更为明确：
+\begin{align}
+u_S(t) &= 
+\frac{S(t)F_S(t, S(t))}{S(t)F_S(t, S(t)) - F(t, S(t))}, \tag{7.29}\\
+u_{\pi}(t) &= 
+\frac{-F(t, S(t))}{S(t)F_S(t, S(t)) - F(t, S(t))}.  \tag{7.30}
+\end{align}
+
+将式 (7.19)、(7.29) 与 (7.30) 代入无套利条件 (7.26),   
+经过若干计算, 得到偏微分方程：
+\begin{equation}
+F_t(t, S(t)) + rS(t)F_S(t, S(t)) + 
+\frac{1}{2}\sigma^2(t, S(t))S^2(t)F_{SS}(t, S(t)) - rF(t, S(t)) = 0. 
+\end{equation}
+
+此外, 根据前一节的结果, 终端条件为
+\[
+\Pi(T) = \Phi(S(T)). 
+\]
+
+这两个方程对于每个固定 $t$ 以概率 1 成立.   
+此外, 可以证明在极弱的假设下(这些假设在 Black–Scholes 模型中显然满足),   
+对于每个固定的 $t>0$, $S(t)$ 的分布具有平滑密度. 由于 $S(t)$ 可以在整个正实数范围内取任意值, 因此 $F$ 必须满足如下(确定性)偏微分方程：
+\[
+F_t(t, s) + rsF_s(t, s) + \tfrac{1}{2}s^2\sigma^2(t, s)F_{ss}(t, s) - rF(t, s) = 0,
+\]
+并且终端条件为
+\[
+F(T, s) = \Phi(s). 
+\]
+
+综上所述, 我们得到如下命题, 这实际上是全书最核心的结果之一. 
+
+\medskip
+\noindent\textbf{定理 7.7(Black–Scholes 方程)}~
+假设市场由式 (7.14)–(7.15) 所描述, 并且我们希望对形式为 (7.16) 的或有权利定价.   
+那么, 与无套利条件一致的唯一价格函数(形式为 (7.17))是满足以下边值问题的函数 $F$：
+\begin{align}
+F_t(t, s) + rsF_s(t, s) + \tfrac{1}{2}s^2\sigma^2(t, s)F_{ss}(t, s) - rF(t, s) &= 0, \tag{7.31}\\
+F(T, s) &= \Phi(s).  \tag{7.32}
+\end{align}
+
+\medskip
+在深入研究该定价方程 (7.31) 之前, 我们先作几点说明. 
+
+首先, 需要强调的是, 我们得到的权利 $\mathcal{X}$ 的价格形式为 $\Pi(t; \mathcal{X}) = F(t, S(t))$, 即价格作为标的资产 $S$ 的函数.   
+这与我们先前的基本思想一致——衍生品的定价应与标的资产价格的动态保持一致.   
+因此, 我们并未给出 $\mathcal{X}$ 的\textbf{绝对价格公式}, 而是进行了\textbf{相对定价}, 即以标的资产价格为参照来确定衍生品价格.   
+特别地, 这意味着要应用套利定价理论, 我们必须事先确定一个或多个标的资产价格过程. 
+
+其次, 值得指出一些批评意见.   
+从表面上看, 方程 (7.31) 的推导似乎相当令人信服, 但其中包含一些较弱的环节.   
+我们的逻辑是：假设衍生品价格为 $t$ 与 $S(t)$ 的函数 $F(t, S(t))$, 然后在无套利条件下推出 $F$ 必须满足 Black–Scholes 方程.   
+问题在于：我们是否确有充分理由认为价格确实是 $F(t, S(t))$ 的形式？  
+前文给出的马尔可夫性论证虽然听起来合理, 但并不完全令人信服. 
+
+更为严重的假设在于：我们默认市场上\textbf{确实存在衍生品的交易市场}, 特别是存在一个关于衍生品的价格过程.   
+这一假设对论证至关重要, 因为我们实际上是通过构建基于衍生品(及标的资产)的投资组合来进行推导. 若衍生品未在市场上交易, 则无法构造前述投资组合, 我们的论证也将失效.   
+当然, 对于标准衍生品(如欧式看涨期权), 这一假设是合理的, 因为此类产品实际上在大规模交易.   
+但若要对场外(OTC, over the counter)衍生品定价, 即那些并非在常规市场中交易的产品, 这种假设便可能造成严重问题. 
+
+幸运的是, 关于定价方程 (7.31) 的推导还存在另一种论证方式(将在后文给出), 且不受上述批评的影响.   
+结论是：读者可以放心, 方程 (7.31) 的确是“正确”的定价方程. 
+
+\medskip
+在此顺便指出一个极为惊人的事实：定价方程 (7.31) 中并不包含标的资产的局部期望收益率 $\alpha(t, s)$.   
+换言之, 在衍生品定价中, 标的资产的期望收益率完全不起作用.   
+唯一重要的因素是价格过程的波动率 $\sigma(t, s)$.   
+因此, 在给定波动率的条件下, 固定衍生品(如欧式看涨期权)的价格将完全相同——无论标的资产的收益率是 $10\%$、$50\%$ 还是 $-50\%$.   
+
+乍一看, 这似乎非常反直觉, 甚至令人怀疑整个套利定价理论的合理性.   
+然而, 这一现象有其自然解释, 我们将在后文回到这个问题.   
+目前可以指出的是, 这一结果与我们以标的资产价格为基础进行\textbf{相对定价}这一事实密切相关. 
+
+\section{风险中性估值}
+
+我们重新考虑由下列方程定义的市场：
+\begin{align}
+dB(t) &= rB(t)\,dt, \tag{7.33}\\
+dS(t) &= S(t)\alpha(t, S(t))\,dt + S(t)\sigma(t, S(t))\,d\widetilde{W}(t), \tag{7.34}
+\end{align}
+并考虑一个形式为 $\mathcal{X} = \Phi(S(T))$ 的或有权利.   
+此时, 无套利价格由 $\Pi(t; \Phi) = F(t, S(t))$ 给出, 其中 $F$ 是定价方程 (7.31)–(7.32) 的解. 
+
+我们现在关注如何求解此定价方程.   
+注意到该方程正好可以通过费曼–卡克(Feynman–Kac)公式给出随机表示形式.   
+根据第 5.5 节的结果, 解为：
+\begin{equation}
+F(t, s) = e^{-r(T - t)}E^{t, s}[\Phi(X(T))],
+\tag{7.35}
+\end{equation}
+其中过程 $X$ 满足动态方程
+\begin{align}
+dX(u) &= rX(u)\,du + X(u)\sigma(u, X(u))\,dW(u), \tag{7.36}\\
+X(t) &= s.  \tag{7.37}
+\end{align}
+其中 $W$ 为 Wiener 过程.   
+需要注意的是, 随机微分方程 (7.36) 与价格过程 $S$ 的形式完全相同.   
+唯一的区别在于：$S$ 的局部收益率为 $\alpha$, 而 $X$ 的局部收益率为短期利率 $r$. 
+
+过程 $X$ 仅是一个技术性工具, 在此定义只是为了推导方便.   
+由于 $X$ 与 $S$ 的形式非常相似, 我们可以直接将其记为 $S$.   
+只要不混淆“真实”的 $S$ 过程(即式 (7.34) 的 $S$)与“新的” $S$ 过程, 这样做完全可行.   
+避免混淆的一种方法如下. 
+
+我们用字母 $P$ 表示支配真实模型 (7.33)–(7.34) 的“客观”概率测度.   
+因此我们称式 (7.34) 的 $S$ 动态为 $P$-动态($P$-dynamics).   
+现在我们定义另一个概率测度 $Q$, 其下 $S$ 过程具有不同的分布.   
+该测度由以下 $Q$-动态定义：
+\begin{equation}
+dS(t) = rS(t)\,dt + S(t)\sigma(t, S(t))\,dW(t),
+\tag{7.38}
+\end{equation}
+其中 $W$ 为 $Q$-Wiener 过程.   
+为了区分不同测度下的期望, 我们引入如下记号约定. 
+
+\medskip
+\noindent\textbf{记号约定 7.4.1}~
+在本书剩余部分中, 我们采用如下记号：
+\begin{itemize}
+    \item 期望算子：$E$ 表示在 $P$-测度下的期望, 而 $E^Q$ 表示在 $Q$-测度下的期望；
+    \item Wiener 过程：$\widetilde{W}$ 表示 $P$-Wiener 过程, 而 $W$ 表示 $Q$-Wiener 过程. 
+\end{itemize}
+
+这种约定的好处在于, 可以通过符号立即判断某个随机微分方程是在何种测度下定义的.   
+在后续内容中, 我们将主要在 $Q$-测度下工作, 因此 $Q$-Wiener 过程 $W$ 的记号比 $P$-Wiener 过程 $\widetilde{W}$ 更为简洁.   
+基于这一记号, 我们可以给出衍生品定价的核心结果. 
+
+\medskip
+\noindent\textbf{定理 7.8(风险中性估值)}~
+或有权利 $\Phi(S(T))$ 的无套利价格 $\Pi(t; \Phi) = F(t, S(t))$ 由下式给出：
+\begin{equation}
+F(t, s) = e^{-r(T - t)}E^Q_{t, s}[\Phi(S(T))],
+\tag{7.39}
+\end{equation}
+其中 $S$ 的 $Q$-动态由式 (7.38) 给出. 
+
+\medskip
+该公式有一个自然的经济解释：  
+衍生品在当前时刻 $t$、给定股票价格 $s$ 下的价格, 等于其到期支付的期望值的贴现.   
+即我们在 $Q$-测度下取期望 $E^Q_{t, s}[\Phi(S(T))]$, 再乘以贴现因子 $e^{-r(T - t)}$,   
+从而得到期权的现值. 我们在此强调：当计算期望值时, 我们并不是使用客观概率测度 $P$, 而是使用式 (7.38) 中定义的 $Q$-测度.   
+该 $Q$-测度有时称为\textbf{风险调整测度}(risk adjusted measure), 但更常见的名称是\textbf{鞅测度}(martingale measure).   
+我们将采用后一种术语.   
+之所以称为鞅测度, 是因为在 $Q$ 下, 归一化价格过程 $\frac{S(t)}{B(t)}$ 是一个 $Q$-鞅.   
+在更深入的套利定价理论研究中(见第 10 章), $Q$ 测度将是核心研究对象.   
+我们将鞅性质表述如下. 
+
+\medskip
+\noindent\textbf{命题 7.9(鞅性质)}~
+在 Black–Scholes 模型中, 每一个可交易资产(无论是标的资产还是衍生品)的价格过程 $\Pi(t)$ 具有如下性质：
+\[
+Z(t) = \frac{\Pi(t)}{B(t)}
+\]
+是 $Q$-测度下的鞅. 
+
+\medskip
+\noindent\textbf{证明}~
+见习题.  \qed
+
+\medskip
+公式 (7.39) 有时被称为\textbf{风险中性估值公式}(risk neutral valuation).   
+假设所有市场参与者都是风险中性的, 那么所有资产的收益率都等于短期利率.   
+换言之, 在风险中性世界中, 股票价格的 $Q$-动态形式与式 (7.38) 相同(更严格地说, 此时有 $Q = P$).   
+
+在风险中性世界中, 未来随机支付的现值等于其以短期利率贴现的期望值.   
+因此公式 (7.39) 恰好是风险中性世界下用于定价或有权利的形式.   
+需要注意的是, 我们\textbf{并未假设}模型中的代理人实际是风险中性的.   
+该公式仅说明：在无套利条件下, 或有权利的价值可\textbf{按风险中性世界的方式}计算.   
+换言之, 代理人可以具有任意风险偏好, 只要他们都偏好确定的更多财富而非更少即可.   
+因此, 上述估值公式是\textbf{与偏好无关的}(preference free), 适用于任意形式的风险偏好. 
+
+\section{Black–Scholes 公式}
+
+本节我们将上一节模型具体化到 Black–Scholes 模型的情形.   
+模型定义为
+\begin{align}
+dB(t) &= rB(t)\,dt, \tag{7.40}\\
+dS(t) &= \alpha S(t)\,dt + \sigma S(t)\,d\widetilde{W}(t), \tag{7.41}
+\end{align}
+其中 $\alpha$ 与 $\sigma$ 为常数.   
+根据前述结果, 简单或有权利 $\Phi(S(T))$ 的无套利价格为
+\begin{equation}
+F(t, s) = e^{-r(T - t)}E^Q_{t, s}[\Phi(S(T))],
+\tag{7.42}
+\end{equation}
+其中 $S$ 的 $Q$-动态为
+\begin{align}
+dS(u) &= rS(u)\,du + \sigma S(u)\,dW(u), \tag{7.43}\\
+S(t) &= s.  \tag{7.44}
+\end{align}
+
+在该随机微分方程中, 我们可以识别出几何布朗运动(见第 5.2 节).   
+由此我们得到
+\begin{equation}
+S(T) = s\exp\!\left\{\!\Big(r - \tfrac{1}{2}\sigma^2\Big)(T - t) + \sigma(W(T) - W(t))\!\right\}.
+\tag{7.45}
+\end{equation}
+
+因此定价公式为
+\begin{equation}
+F(t, s) = e^{-r(T - t)}\int_{-\infty}^{\infty}\Phi(se^z)f(z)\,dz,
+\tag{7.46}
+\end{equation}
+其中 $f$ 为随机变量 $Z$ 的密度, 其分布为
+\[
+N\!\left[\!\Big(r - \tfrac{1}{2}\sigma^2\Big)(T - t),\,\sigma\sqrt{T - t}\!\right]. 
+\]
+
+公式 (7.46) 是一个积分形式的定价公式.   
+对于一般的合约函数 $\Phi$, 必须数值求解.   
+但对于某些特殊情形可解析计算, 最著名的例子便是欧式看涨期权, 其 $\Phi$ 形式为 $\Phi(x) = \max[x - K, 0]$.   
+此时可得
+\begin{equation}
+E^Q_{t, s}[\max(se^Z - K, 0)] = 0\cdot Q(se^Z \le K) + \int_{\ln(K/s)}^{\infty}(se^Z - K)f(z)\,dz. 
+\tag{7.47}
+\end{equation}
+
+经过标准计算, 得到以下著名结果：
+
+\medskip
+\noindent\textbf{命题 7.10(Black–Scholes 公式)}~
+欧式看涨期权的价格 $\Pi(t) = F(t, S(t))$ 由下式给出：
+\begin{equation}
+F(t, s) = sN[d_1(t, s)] - e^{-r(T - t)}KN[d_2(t, s)], 
+\tag{7.48}
+\end{equation}
+其中 $N$ 为 $N[0, 1]$ 分布的累积分布函数, 且
+\begin{align}
+d_1(t, s) &= \frac{1}{\sigma\sqrt{T - t}}\Bigg\{\ln\!\Big(\frac{s}{K}\Big) + \Big(r + \tfrac{1}{2}\sigma^2\Big)(T - t)\Bigg\}, \tag{7.49}\\
+d_2(t, s) &= d_1(t, s) - \sigma\sqrt{T - t}.  \tag{7.50}
+\end{align}
+
+图 7.3 展示了 Black–Scholes 定价函数的曲线(时间单位取为一年). 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figure/fig7_3.jpg}
+    \caption{欧式看涨期权的 Black–Scholes 定价函数：$K = 100, \sigma = 0.2, T - t = 0.25$}
+    \label{fig:7_3}
+\end{figure}
+
+\section{期货期权}
+
+本节的目标是推导适用于期货合约的 Black 公式.   
+我们仅作简要说明, 更多制度性与技术性细节请参阅第 29 章(及附注部分). 
+
+\subsection{远期合约(Forward Contracts)}
+
+考虑标准 Black–Scholes 模型中的一个简单 $T$-期权 $\mathcal{X} = \Phi(S_T)$, 假设我们当前处于时刻 $t$.   
+\textbf{远期合约}(forward contract)定义为：在时刻 $t$ 签订合约, 约定持有者在交割日 $T$ 支付确定金额 $K$, 并在该日收到随机金额 $\mathcal{X}$.   
+在签约时刻 $t$ 不发生任何支付或收款.   
+注意, 远期价格 $K$ 在签约时刻即已确定.   
+我们用记号 $K = f(t; T, \mathcal{X})$ 表示, 目标是求出该函数. 
+
+事实上, 这非常简单. 整个远期合约可以视为一个或有权利 $Y$：
+\[
+Y = \mathcal{X} - K. 
+\]
+根据定义, 合约签订时刻 $t$ 的价值为零, 即
+\[
+\Pi(t; \mathcal{X} - K) = 0, 
+\]
+因此有
+\[
+\Pi(t; \mathcal{X}) = \Pi(t; K). 
+\]
+
+利用风险中性估值立即得出
+\[
+\Pi(t; K) = e^{-r(T - t)}K, \quad \Pi(t; \mathcal{X}) = e^{-r(T - t)}E^Q_{t, s}[\mathcal{X}], 
+\]
+由此得到以下结果. 
+
+\medskip
+\noindent\textbf{命题 7.11}~
+远期价格 $f(t; T, \mathcal{X})$ 定义为时刻 $t$ 对 $T$-期权 $\mathcal{X}$ 签订的远期合约价格, 则有
+\begin{equation}
+f(t; T, \mathcal{X}) = E^Q_{t, s}[\mathcal{X}]. 
+\tag{7.51}
+\end{equation}
+特别地, 若 $\mathcal{X} = S_T$, 则相应远期价格为
+\begin{equation}
+f(t; T) = e^{r(T - t)}S_t. 
+\tag{7.52}
+\end{equation}
+
+\paragraph{注记 7.6.1}~
+请注意远期价格 $f(t; T, \mathcal{X})$ 与整个远期合约的现值之间的区别.   
+前者为未来时刻 $T$ 支付的金额, 而后者在签订时刻的价格为零, 但在任何 $s > t$ 的时刻通常为非零. 
+
+\subsection{期货合约与 Black 公式}
+
+与上节设定相同, 考虑基于 $\mathcal{X}$ 的\textbf{期货合约}.   
+该合约与远期合约类似, 也是关于交割日 $T$ 的交付约定, 不同之处在于所有支付从持有人向承销人持续发生.   
+记期货价格为 $F(t; T, \mathcal{X})$.   
+在时间区间 $[s, s + \Delta s]$ 内, 持有人从承销人处收到
+\[
+F(s + \Delta s; T, \mathcal{X}) - F(s; T, \mathcal{X}). 
+\]
+在交割日 $T$, 持有人收到 $\mathcal{X}$ 并支付 $F(T; T, \mathcal{X})$.   
+按定义, 整个期货合约的现值为零, 因此进入或退出合约均无成本.   
+
+\medskip
+\noindent\textbf{命题 7.12}~
+若短期利率为确定常数, 则远期与期货价格过程相同, 且有
+\begin{equation}
+F(t; T, \mathcal{X}) = E^Q_{t, s}[\mathcal{X}]. 
+\tag{7.53}
+\end{equation}
+
+我们接下来考虑欧式看涨期权, 其标的为交割日为 $T_1$ 的期货合约, 期权到期时间为 $T$、行权价为 $K$, 其中 $T < T_1$.   
+此类期权交易频繁, 持有人在行权时刻 $T$ 将获得期货多头头寸以及随机金额
+\begin{equation}
+\mathcal{X} = \max[F(T; T_1) - K, 0]. 
+\tag{7.54}
+\end{equation}
+
+由于期货合约的现值为零, 在定价时可直接将其视为上述或有权利.   
+结合命题 7.12 与式 (7.52), 我们有
+\[
+\mathcal{X} = e^{r(T_1 - T)}\max[S_T - e^{-r(T_1 - T)}K, 0]. 
+\]
+
+因此期货期权相当于 $e^{r(T_1 - T)}$ 倍的欧式看涨期权, 标的为 $S$, 行权价为 $e^{-r(T_1 - T)}K$.   
+设时刻 $T$ 期货期权价格为 $c$, 股票价格为 $s$, 期货价格为 $F(t; T_1)$, 则根据 Black–Scholes 公式有
+\[
+c = e^{r(T_1 - T)}\Big[sN[d_1] - e^{-r(T - t)}e^{-r(T_1 - T)}KN[d_2]\Big]. 
+\]
+
+整理得所谓的\textbf{Black–76 公式}：
+
+\medskip
+\noindent\textbf{命题 7.13(Black 公式)}~
+在时刻 $t$, 欧式看涨期货期权(行权价 $K$、行权日 $T$、标的为交割日 $T_1$ 的期货合约)的价格为
+\begin{equation}
+c = e^{-r(T - t)}[FN[d_1] - KN[d_2]], 
+\tag{7.55}
+\end{equation}
+其中 $F = F(T; T_1)$ 为期货价格, 且
+\[
+d_1 = \frac{\ln(F/K) + \tfrac{1}{2}\sigma^2(T - t)}{\sigma\sqrt{T - t}}, \qquad
+d_2 = d_1 - \sigma\sqrt{T - t}. 
+\]
+
+\section{波动率}
+
+为了在实际应用中使用上述理论, 我们需要对所有输入参数进行数值估计.   
+在 Black–Scholes 模型中, 输入参数包括 $s, r, T, t, \sigma$.   
+其中 $s, r, T, t$ 可直接观测, 而关键问题在于波动率 $\sigma$ 的估计.   
+通常有两种主要方法：使用\textbf{历史波动率}(historic volatility)或\textbf{隐含波动率}(implied volatility). 
+\subsection{历史波动率(Historic Volatility)}
+
+假设我们希望对一份还有六个月到期的欧式看涨期权进行定价.   
+一个显而易见的方法是利用历史股票价格数据来估计 $\sigma$.   
+由于现实中波动率并非恒定, 人们通常使用与到期时间相同长度的历史数据区间.   
+在本例中, 即使用过去六个月的数据. 
+
+为估计 $\sigma$, 假设在客观测度 $P$ 下股票价格过程 $S$ 满足标准 Black–Scholes 几何布朗运动模型 (7.4).   
+我们在 $n + 1$ 个等距离散点 $t_0, t_1, \ldots, t_n$ 处观测股票价格, 其中 $\Delta t = t_i - t_{i-1}$ 表示采样间隔. 
+
+定义
+\[
+\xi_i = \ln\!\left(\frac{S(t_i)}{S(t_{i-1})}\right). 
+\]
+由式 (5.15) 可知, $\xi_1, \ldots, \xi_n$ 相互独立且服从正态分布, 其期望与方差为
+\[
+E[\xi_i] = \Big(\alpha - \tfrac{1}{2}\sigma^2\Big)\Delta t, \qquad
+Var[\xi_i] = \sigma^2 \Delta t. 
+\]
+
+由基本统计理论可得, 对 $\sigma$ 的估计为
+\[
+\sigma^{\star} = \frac{S_{\xi}}{\sqrt{\Delta t}}, 
+\]
+其中样本方差 $S_{\xi}^2$ 为
+\[
+S_{\xi}^2 = \frac{1}{n - 1}\sum_{i=1}^{n}(\xi_i - \bar{\xi})^2, \qquad
+\bar{\xi} = \frac{1}{n}\sum_{i=1}^{n}\xi_i. 
+\]
+估计量 $\sigma^{\star}$ 的标准差近似为
+\[
+D(\sigma^{\star}) \approx \frac{\sigma^{\star}}{\sqrt{2n}}. 
+\]
+
+\subsection{隐含波动率(Implied Volatility)}
+
+再次假设我们要对一份还有六个月到期的欧式看涨期权进行定价.   
+反对使用历史波动率的理由是现实中波动率随时间变化, 而我们希望估计未来六个月的波动率.   
+使用历史波动率只能得到过去六个月的波动水平.   
+若我们希望期权定价与市场上其他资产保持一致, 就应使用市场对未来波动率的预期, 即\textbf{隐含波动率}. 
+
+一种常见方法是：通过市场数据找到一个具有相同期限的“基准期权”.   
+设该基准期权的价格为 $p$, 行权价为 $K$, 标的资产当前价格为 $s$.   
+将欧式看涨期权的 Black–Scholes 定价公式写作 $c(s, t, T, r, \sigma, K)$, 则我们解以下方程求 $\sigma$：
+\[
+p = c(s, t, T, r, \sigma, K). 
+\]
+换言之, 我们寻找市场隐含使用的 $\sigma$ 值, 此即\textbf{隐含波动率}.   
+求得后, 可将该 $\sigma$ 应用于我们需要定价的目标期权.   
+换句话说, 我们在基准期权的隐含波动率下为目标期权定价. 
+
+此外, 隐含波动率还能用于检验 Black–Scholes 模型.   
+例如, 若我们观察到同一标的资产、相同到期日的多个欧式看涨期权的市场价格,   
+并以行权价为横轴绘制其隐含波动率曲线, 若模型成立(波动率恒定), 则应得到一条水平直线.   
+但经验上, 价外或价内期权往往具有更高的隐含波动率, 图形类似“柴郡猫的微笑”,   
+因此称为\textbf{波动率微笑}(volatility smile). 
+
+\paragraph{注记 7.7.1}~
+若在时刻 $t$ 有 $S_t > K$, 则看涨期权称为“价内期权”(in the money)；  
+若 $S_t < K$, 则为“价外期权”(out of the money)；  
+若 $S_t = K$, 则为“平值期权”(at the money). 
+
+\section{美式期权}
+
+迄今为止, 我们假设合约(如看涨期权)只能在到期日 $T$ 行权.   
+现实中, 许多期权可在到期日前任意时刻行权,   
+行权时机由持有人选择, 这类合约称为\textbf{美式期权}(American contract). 
+
+更正式地, 设最终行权日为 $T$, 合约函数为 $\Phi$.   
+欧式期权在 $T$ 时支付 $\Phi(S_T)$,   
+而美式期权的持有人若在任意时刻 $t$ 行权, 则获得 $\Phi(S_t)$.   
+由于行权时间 $t$ 无需预先固定(即 $t=0$ 时未定),   
+它取决于截至 $t$ 时的价格过程信息, 因此行权时刻 $\tau$ 实际上是一个随机变量.   
+
+\medskip
+因此, 美式期权的分析较欧式期权复杂得多.   
+持有人需确定一条\textbf{最优行权策略}(optimal exercise strategy).   
+数学上, 该问题可表述为\textbf{最优停止问题}(optimal stopping problem)：
+\[
+\max_{\tau} E^Q[e^{-r\tau}\Phi(S_{\tau})],
+\]
+其中 $\tau$ 在所有停止时刻类中取遍.   
+这类问题解析上困难, 通常导致\textbf{自由边界问题}或\textbf{变分不等式},   
+而非欧式期权对应的抛物型 PDE.   
+相关细节见第 21 章的最优停止理论介绍. 
+
+然而, 有一种美式期权的情形可被清晰分析——即标的资产无股息支付的美式看涨期权.   
+设最终行权日为 $T$, 行权价为 $K$.   
+记美式期权定价函数为 $C(t, s)$, 对应欧式期权定价函数为 $c(t, s)$.   
+则显然有
+\begin{equation}
+C(t, s) \ge c(t, s), 
+\tag{7.56}
+\end{equation}
+并且对任意 $t < T$, 还成立不等式
+\begin{equation}
+c(t, s) \ge s - Ke^{-r(T - t)}. 
+\tag{7.57}
+\end{equation}
+
+要理解式 (7.57), 只需比较两个投资组合 $A$ 与 $B$：  
+组合 $A$ 持有欧式看涨期权, 组合 $B$ 持有股票并做空一份远期合约(行权价 $K$).   
+此时到期价值相同, 但 $B$ 的当前价值小于 $A$, 从而得出不等式. 设在任意时刻 $t$, 组合 $A$ 与 $B$ 的价格分别为 $A_t$ 与 $B_t$.   
+显然, 对于任意 $S_T$(无论 $S_T \ge K$ 或 $S_T < K$), 均有 $A_T \ge B_T$.   
+为避免套利, 必须对所有 $t \le T$ 满足 $A_t \ge B_t$, 这正是式 (7.57) 的含义. 
+
+进一步地, 若利率为正, 则有显然不等式
+\[
+s - Ke^{-r(T - t)} > s - K, \quad \forall\, t < T,
+\]
+从而得到
+\begin{equation}
+C(t, s) > s - K, \quad \forall\, t < T. 
+\tag{7.58}
+\end{equation}
+
+左边为时刻 $t$ 的美式期权价值, 右边为立即行权的价值.   
+由于前者严格大于后者, 因此在 $t$ 时行权并非最优.   
+该结论对所有 $t < T$ 成立, 因此美式看涨期权在到期前永远不应被行权,   
+我们得到如下结果. 
+
+\medskip
+\noindent\textbf{命题 7.14}~
+假设 $r > 0$.   
+对于无股息标的资产的美式看涨期权, 其最优行权时刻 $\tau = T$.   
+因此美式看涨期权与对应欧式期权价格相同. 
+
+\medskip
+若标的资产支付离散股息, 则上述结论可推广：  
+在这种情况下, 期权仅可能在最终时刻 $T$ 或股息发放时刻行权.   
+美式看跌期权(即使无股息)则更为复杂, 且没有解析解.   
+详情见附注. 
+
+\section{习题}
+
+\noindent\textbf{习题 7.1}~
+考虑标准 Black–Scholes 模型以及形式为 $\mathcal{X} = \Phi(S(T))$ 的 $T$-期权.   
+设其无套利价格过程为 $\Pi(t)$. 
+
+\begin{enumerate}
+    \item 证明在鞅测度 $Q$ 下, $\Pi(t)$ 的局部收益率等于短期利率 $r$. 换言之, 证明 $\Pi(t)$ 满足微分方程\\
+\[
+d\Pi(t) = r\,\Pi(t)\,dt + g(t)\,dW(t). 
+\]\\
+\textit{提示：}使用 $S$ 的 $Q$-动态及 $F$ 满足定价 PDE 的事实. 
+
+\item 证明在鞅测度 $Q$ 下, 过程 $Z(t) = \frac{\Pi(t)}{B(t)}$ 为鞅.   
+更具体地, 证明其随机微分形式为
+\[
+dZ(t) = Z(t)\sigma_Z(t)\,dW(t),
+\]
+其中 $\sigma_Z(t)$ 可用定价函数 $F$ 及其导数表示. 
+\end{enumerate}
+
+\noindent\textbf{习题 7.2}~
+在标准 Black–Scholes 模型中, 公司 \textit{F\&H INC} 发行了名为“黄金对数”(Golden Logarithm, 简写为 GL)的衍生品.   
+持有人在到期时获得 $\ln S(T)$ 的和(若 $S(T) < 1$, 则需向公司支付金额).   
+求 GL 的无套利价格过程. 
+
+\noindent\textbf{习题 7.3}~
+推导欧式看涨期权的 Black–Scholes 定价公式. 
+
+\noindent\textbf{习题 7.4}~
+设 $\mathcal{X} = \{S(T)\}^{\beta}$, 其中 $\beta$ 为常数.   
+求该 $T$-期权的无套利价格过程.   
+\textit{提示：}参考习题 5.5 与 4.4. 
+
+\noindent\textbf{习题 7.5}~
+二元期权(binary option)在到期时若 $S_T \in [\alpha, \beta]$, 则支付固定金额 $K$, 否则为零.   
+推导其无套利价格公式(涉及标准正态累积分布函数 $N$). 
+
+\noindent\textbf{习题 7.6}~
+设 $\mathcal{X} = \frac{S(T_1)}{S(T_0)}$, 其中 $T_0$ 与 $T_1$ 已知.   
+求其无套利价格过程. 
+
+\noindent\textbf{习题 7.7}~
+公司 \textit{ACME INC} 的股票价格 $S$(以美元计)在 $P$-动态下满足
+\[
+dS = \alpha S\,dt + \sigma S\,d\widetilde{W}_1,
+\]
+汇率 SEK/USD 记为 $Y$, 满足
+\[
+dY = \beta Y\,dt + \delta Y\,d\widetilde{W}_2,
+\]
+其中 $\widetilde{W}_1$ 与 $\widetilde{W}_2$ 独立.   
+券商 \textit{F\&H} 发明了名为 “Euler” 的衍生品.   
+持有人在到期时获得金额
+\[
+\mathcal{X} = \ln\!\Big[\{Z(T)\}^2\Big],
+\]
+其中 $Z(T)$ 为 ACME 股票以 SEK 计价的价格.   
+求该 Euler 产品的无套利价格(以 SEK 计), 已知 ACME 股票价格为 $z$, 瑞典短期利率为 $r$. 
+
+\noindent\textbf{习题 7.8}~
+证明公式 (7.52). 
+
+\noindent\textbf{习题 7.9}~
+推导在 $t < s < T$ 时, 于时刻 $t$ 签订的远期合约在时刻 $s$ 的价值公式. 
+
+\section{附注}
+
+该领域的经典文献为 Black 与 Scholes (1973) 以及 Merton (1973).   
+现代套利定价的鞅方法由 Harrison 与 Kreps (1979)、Harrison 与 Pliska (1981) 首创.   
+关于“无套利”与“鞅测度”存在性之间关系的深入讨论, 可参见 Delbaen 与 Schachermayer (1994). 
+
+关于远期与期货合约的详细资料, 可参阅 Hull (2003) 与 Duffie (1989).   
+Black 公式由 Black (1976) 推导；  
+美式期权相关研究包括 Barone-Adesi 与 Elliott (1991)、Geske 与 Johnson (1984)、Musiela 与 Rutkowski (1997).   
+最优停止问题的标准参考为 Shiryaev (2008) 与 Peskir \& Shiryaev (2006).   
+清晰的最优停止理论入门可参见 Øksendal (1998).   
+随机波动率定价理论见 Hull \& White (1987),   
+Leland (1995) 研究了交易成本的影响. 
+
+\chapter{完备性与对冲}
+
+\section{引言}
+
+在上一章中我们注意到, 定价方程 (7.31) 的推导在某种程度上是不令人满意的, 一个主要的批评是我们被迫假设衍生品预先就存在价格过程并且实际上已经在市场上交易. 在本章中我们将从略有不同的角度来看待套利定价, 这种替代的方法将带来两个好处. 首先, 它将允许我们去除上面的恼人假设, 即衍生品实际上可以被交易；其次, 它将为我们提供一个解释, 即为什么在前面研究的简单权利能够被赋予唯一的价格. 更详细的讨论见第 10、12 和 15 章. 
+
+我们从一个相当一般的情况开始, 考虑一个金融市场, 其价格向量过程为
+\[
+S=(S^1,\ldots,S^N)
+\]
+该过程在客观概率测度 $P$ 下被支配. 过程 $S$ 通常被解释为外生给定的基础资产价格过程, 而我们现在希望为一个到期时间为 $T$ 的或有权利 $\mathcal{X}$ 定价. 我们假设所有基础资产都在市场上交易, 但并不假设存在一个预先存在的市场(或价格过程)用于该衍生品. 为了避免琐碎的情况, 我们还假设基础市场是无套利的. 
+
+\medskip
+\noindent\textbf{定义 8.1}~我们说一个 $T$-claim $\mathcal{X}$ 可以被复制, 或者说是可达的或可对冲的, 如果存在一个自融资投资组合 $h$ 使得
+\begin{equation}
+V^h(T)=\mathcal{X},\quad P\text{-a.s.}
+\tag{8.1}
+\end{equation}
+在这种情况下, 我们说 $h$ 是 $\mathcal{X}$ 的一个 hedge. 或者, $h$ 被称为一个复制或对冲投资组合. 若每一个或有权利都是可达的, 我们称该市场是完备的. 
+
+现在我们考虑一个固定的 $T$-claim $\mathcal{X}$ 并且假设 $\mathcal{X}$ 可以被某个投资组合 $h$ 复制. 然后我们可以进行如下的思想实验：
+\begin{enumerate}
+\item 固定一个时间点 $t$, 其中 $t\le T$
+\item 假设在时间 $t$ 我们持有 $V^h(t)$ 单位货币
+\item 我们可以使用这笔钱购买投资组合 $h(t)$. 如果我们在时间区间 $[t,T]$ 内按照投资组合策略 $h$ 进行操作, 并且由于 $h$ 是自融资的, 这不会花费任何资金, 那么在时间 $T$ 时, 我们的投资组合的价值将是 $V^h(T)$
+\item 根据复制假设, 在时间 $T$ 我们的投资组合价值将正好是 $\mathcal{X}$, 无论在区间 $[t,T]$ 内的随机价格变动如何
+\item 从纯粹金融的角度来看, 在时间 $t$ 持有该投资组合等价于持有合约 $\mathcal{X}$
+\item 因此, 在时间 $t$, 合约 $\mathcal{X}$ 的“正确”价格由 $\Pi(t;\mathcal{X})=V^h(t)$ 给出
+\end{enumerate}
+
+因此, 对于可对冲的权利, 我们就有一个自然的价格过程 $\Pi(t;\mathcal{X})=V^h(t)$, 并且我们现在可以问这是否与无套利的缺失有任何关系. 
+
+\medskip
+\noindent\textbf{命题 8.2}~假设权利 $\mathcal{X}$ 可以通过投资组合 $h$ 对冲. 那么与无套利一致的唯一价格过程由
+\[
+\Pi(t;\mathcal{X})=V^h(t)
+\]
+给出. 此外, 若 $\mathcal{X}$ 既可以由 $g$ 又可以由 $h$ 对冲, 则 $V^g(t)=V^h(t)$ 对所有 $t$ 以概率 1 成立. 
+
+\medskip
+\noindent\textit{证明}~如果在某一时刻 $t$ 有 $\Pi(t;\mathcal{X})<V^h(t)$, 那么我们可以通过卖空投资组合并买入该权利来进行套利；若 $\Pi(t;\mathcal{X})>V^h(t)$, 则反向操作亦可套利. 因此必须有 $V^g(t)=V^h(t)$. \qed
+
+\section{Black–Scholes 模型下的完备性}
+
+我们现在将研究广义 Black–Scholes 模型的完备性. 模型为
+\begin{align}
+dB(t)&=rB(t)\,dt,
+\tag{8.2}\\
+dS(t)&=S(t)\alpha(t,S(t))\,dt+S(t)\sigma(t,S(t))\,d\widetilde{W}(t),
+\tag{8.3}
+\end{align}
+其中我们假设 $\sigma(t,s)>0$ 对所有 $(t,s)$ 成立. 主要结果如下. 
+
+\medskip
+\noindent\textbf{定理 8.3}~模型 (8.2)–(8.3) 是完备的. 
+
+\medskip
+该定理的证明需要一些相当深的概率论结果, 因此超出本书范围. 我们将证明一个较弱的版本, 即每一个简单权利都可以被对冲. 这对于实际目的通常已足够, 而且我们“受限完备性”的证明还有一个优点, 即它给出了显式的复制投资组合. 我们采用记号 $h(t)=[h^0(t),h^{\star}(t)]$, 其中 $h^0$ 表示投资组合中债券的份数, $h^{\star}$ 表示股票的份数. 我们固定一个简单的 $T$-claim, $\mathcal{X}=\Phi(S(T))$, 并且现在希望证明该权利可以被对冲. 
+
+\medskip
+\noindent\textbf{引理 8.4}~假设存在一个适应过程 $V$ 和一个适应向量过程 $u=[u^0,u^{\star}]$ 满足
+\begin{equation}
+u^0(t)+u^{\star}(t)=1
+\tag{8.4}
+\end{equation}
+并且
+\begin{align}
+dV(t)&=V(t)\{u^0(t)r+u^{\star}(t)\alpha(t,S(t))\}\,dt+V(t)u^{\star}(t)\sigma(t,S(t))\,d\widetilde{W}(t),
+\notag\\
+V(T)&=\Phi(S(T))
+\tag{8.5}
+\end{align}
+则权利 $\mathcal{X}=\Phi(S(T))$ 可以使用 $u$ 作为相对投资组合进行复制. 对应的价值过程由 $V$ 给出, 绝对投资组合由下式给出
+\begin{equation}
+h^0(t)=\frac{u^0(t)V(t)}{B(t)}
+\tag{8.6}
+\end{equation}
+\begin{equation}
+h^{\star}(t)=\frac{u^{\star}(t)V(t)}{S(t)}
+\tag{8.7}
+\end{equation}
+
+\paragraph{Begin Heuristics} 我们假设我们想要证明的, 即 $\mathcal{X}=\Phi(S(T))$ 确实是可复制的, 然后我们思考对冲策略 $u$ 会是什么样子. 由于 $S$-过程(以及平凡的 $B$-过程)是马尔可夫过程, 因此似乎合理地假设对冲投资组合具有形式 $h(t)=h(t,S(t))$. 进一步, 由于价值过程 $V$(我们省略上标 $h$)定义为 $V(t)=h^0(t)B(t)+h^{\star}(t)S(t)$, 它也将是时间和股票价格的函数, 
+\begin{equation}
+V(t)=F(t,S(t))
+\tag{8.8}
+\end{equation}
+其中 $F$ 是某个实值的确定性函数, 我们希望了解更多. 
+
+假设 (8.8) 实际成立. 于是我们可以对 $V$ 应用伊藤公式以得到 $V$-动态
+\begin{equation}
+dV=\{F_t+\alpha S F_S+\tfrac{1}{2}\sigma^2 S^2 F_{SS}\}\,dt+\sigma S F_S\,d\widetilde{W}
+\tag{8.9}
+\end{equation}
+现在, 为了使 (8.9) 更像 (8.5) 我们将其改写为
+\begin{equation}
+dV=V\Big\{\frac{F_t+\alpha S F_S+\tfrac{1}{2}\sigma^2 S^2 F_{SS}}{F}\Big\}dt+V\frac{S F_S}{F}\sigma\,d\widetilde{W}
+\tag{8.10}
+\end{equation}
+由于我们假设 $\mathcal{X}$ 被 $V$ 复制, 我们从 (8.10) 和 (8.5) 看出 $u^{\star}$ 必须由下式给出
+\begin{equation}
+u^{\star}(t)=\frac{S(t)F_S(t,S(t))}{F(t,S(t))}
+\tag{8.11}
+\end{equation}
+将 (8.11) 代入 (8.10) 我们得到
+\begin{equation}
+dV=V\Big\{\frac{F_t+\tfrac{1}{2}\sigma^2 S^2 F_{SS}}{rF}r+u^{\star}\alpha\Big\}dt+V u^{\star}\sigma\,d\widetilde{W}
+\tag{8.12}
+\end{equation}
+将该表达式与 (8.5) 比较, 我们看到 $u^0$ 的自然选择为
+\begin{equation}
+u^0=\frac{F_t+\tfrac{1}{2}\sigma^2 S^2 F_{SS}}{rF}
+\tag{8.13}
+\end{equation}
+但我们还必须满足条件 $u^0+u^{\star}=1$. 使用 (8.11) 和 (8.13) 这给出关系
+\begin{equation}
+\frac{F_t+\tfrac{1}{2}\sigma^2 S^2 F_{SS}}{rF}=\frac{F-SF_S}{F}
+\tag{8.14}
+\end{equation}
+经过一些运算, 这就变成了熟悉的 Black–Scholes 方程
+\begin{equation}
+F_t+r S F_S+\tfrac{1}{2}\sigma^2 S^2 F_{SS}-rF=0
+\tag{8.15}
+\end{equation}
+此外, 为了满足关系 $F(T,S(T))=\Phi(S(T))$, 我们必须有边界条件
+\begin{equation}
+F(T,s)=\Phi(s),\quad \text{for all } s\in\mathbb{R}_+
+\tag{8.16}
+\end{equation}
+\paragraph{End Heuristics} 在此处读者很可能会对推理的逻辑感到有些困惑. 让我们试着把事情理顺. 上面的推理逻辑基本如下：
+\begin{itemize}
+\item 我们假设权利 $\mathcal{X}$ 是可复制的
+\item 使用这一点以及一些进一步的(合理的)假设, 我们表明复制投资组合的价值过程由 $V(t)=F(t,S(t))$ 给出, 其中 $F$ 是 Black–Scholes 方程的解
+\end{itemize}
+当然, 这并非我们希望达到的全部目标. 我们希望去\textit{证明} $\mathcal{X}$ 确实可以被复制. 为此我们将整个启发式论证放入一个逻辑的括号中并在形式上将其忽略. 随后我们得到下面的结果.
+
+\noindent\textbf{定理 8.5}~考虑模型 (8.2)–(8.3), 以及形如 $\mathcal{X}=\Phi(S(T))$ 的或有权利. 令 $F$ 为下列边值问题的解：
+\begin{equation}
+\begin{cases}
+F_t + r s F_s + \tfrac{1}{2}\sigma^2 s^2 F_{ss} - rF = 0,\\
+F(T,s)=\Phi(s)
+\end{cases}
+\tag{8.17}
+\end{equation}
+则 $\mathcal{X}$ 可以被如下相对投资组合复制：
+\begin{equation}
+u^0(t)=\frac{F(t,S(t))-S(t)F_s(t,S(t))}{F(t,S(t))},
+\tag{8.18}
+\end{equation}
+\begin{equation}
+u^{\star}(t)=\frac{S(t)F_s(t,S(t))}{F(t,S(t))}.
+\tag{8.19}
+\end{equation}
+相应的绝对投资组合为
+\begin{equation}
+h^0(t)=\frac{F(t,S(t))-S(t)F_s(t,S(t))}{B(t)},
+\tag{8.20}
+\end{equation}
+\begin{equation}
+h^{\star}(t)=F_s(t,S(t)),
+\tag{8.21}
+\end{equation}
+其价值过程由下式给出：
+\begin{equation}
+V^h(t)=F(t,S(t)).
+\tag{8.22}
+\end{equation}
+
+\textit{证明}~对由 (8.22) 定义的过程 $V(t)$ 应用伊藤公式, 并进行与上面启发式论证中完全相同的计算, 将表明可以应用引理 8.4. \qed
+
+上述结果为我们提供了一个解释, 即在 Black–Scholes 模型中, 衍生资产实际上存在一个唯一的价格, 并且该价格不依赖于任何个体偏好的假设. 衍生资产的无套利价格之所以是唯一确定的, 仅仅是因为在此模型中衍生品是多余的. 它总可以被一个对应的“合成”衍生品替代, 该衍生品由复制投资组合定义. 
+
+由于复制是在 $P$-概率 1 下完成的, 因此我们还看到, 如果一个或有权利 $\mathcal{X}$ 在 $P$-测度下被一个投资组合 $h$ 复制, 并且若 $P^{\ast}$ 是某个与 $P$ 等价的概率测度(即 $P$ 与 $P^{\ast}$ 对所有事件赋予相同的概率 1), 那么 $h$ 也将在 $P^{\ast}$ 下复制 $\mathcal{X}$. 因此, 对给定权利的定价公式对于所有与 $P$ 等价的测度都是相同的. 这是随机微分方程理论中的一个众所周知的事实(Girsanov 定理)：如果我们改变测度从 $P$ 到某个等价测度, 这将改变随机微分方程中的漂移项, 但扩散项不会受到影响. 因此漂移不会出现在定价方程中, 这解释了为什么 $\alpha$ 不出现在 Black–Scholes 方程中. 
+
+\medskip
+现在我们列出一些常见的权利并看看哪些属于上述框架：
+\begin{align}
+\mathcal{X} &= \max[S(T)-K,0] & \text{(European call option)}
+\tag{8.23}\\
+\mathcal{X} &= S(T)-K & \text{(Forward contract)}
+\tag{8.24}\\
+\mathcal{X} &= \max\Big[\frac{1}{T}\int_0^T S(t)\,dt - K, 0\Big] & \text{(Asian option)}
+\tag{8.25}\\
+\mathcal{X} &= S(T) - \inf_{0\le t\le T} S(t) & \text{(Lookback contract)}
+\tag{8.26}
+\end{align}
+
+由定理 8.3 我们知道, 上述所有权利实际上都是可复制的. 然而, 对于一般权利而言, 这只是一个抽象的存在性结果, 我们并不能保证能够以显式形式得到复制投资组合. 定理 8.5 的关键就在于：通过将我们限定为简单权利(simple claims), 即形如 $\mathcal{X}=\Phi(S(T))$ 的权利, 我们得到了对冲投资组合的显式公式. 
+
+显然, European call 以及 forward contract 属于简单权利, 因此我们可以应用定理 8.5. Asian option(也称为 mean value option)和 lookback contract 则更难处理, 因为它们都不是简单权利. 与仅依赖于时间 $T$ 的 $S$ 值不同, 这些权利依赖于整个区间 $[0,T]$ 上的 $S$-轨迹. 因此, 虽然我们知道存在相应的对冲投资组合, 但目前没有明显的方法确定这些投资组合的具体形式. 
+
+实际上, lookback 的复制组合很难确定, 但 Asian option 属于一类我们可以用类似定理 8.5 的技巧给出相当显式的复制投资组合表示的合约. 
+
+\medskip
+\noindent\textbf{命题 8.6}~考虑模型
+\begin{align}
+dB(t)&=rB(t)\,dt,
+\tag{8.27}\\
+dS(t)&=S(t)\alpha(t,S(t))\,dt+S(t)\sigma(t,S(t))\,d\widetilde{W}(t),
+\tag{8.28}
+\end{align}
+并设 $\mathcal{X}$ 为形如
+\begin{equation}
+\mathcal{X}=\Phi(S(T),Z(T))
+\tag{8.29}
+\end{equation}
+的 $T$-claim, 其中过程 $Z$ 定义为
+\begin{equation}
+Z(t)=\int_0^t g(u,S(u))\,du,
+\tag{8.30}
+\end{equation}
+其中 $g$ 为某个确定性函数. 则 $\mathcal{X}$ 可以通过如下相对投资组合复制：
+\begin{equation}
+u^0(t)=\frac{F(t,S(t),Z(t))-S(t)F_s(t,S(t),Z(t))}{F(t,S(t),Z(t))},
+\tag{8.31}
+\end{equation}
+\begin{equation}
+u^{\star}(t)=\frac{S(t)F_s(t,S(t),Z(t))}{F(t,S(t),Z(t))},
+\tag{8.32}
+\end{equation}
+其中 $F$ 是下列边值问题的解：
+\begin{equation}
+\begin{cases}
+F_t + s r F_s + \tfrac{1}{2}s^2\sigma^2 F_{ss} + gF_z - rF = 0,\\
+F(T,s,z)=\Phi(s,z)
+\end{cases}
+\tag{8.33}
+\end{equation}
+相应的价值过程 $V$ 由 $V(t)=F(t,S(t),Z(t))$ 给出, 且 $F$ 具有如下随机表示：
+\begin{equation}
+F(t,s,z)=e^{-r(T-t)}E_{t,s,z}^Q[\Phi(S(T),Z(T))],
+\tag{8.34}
+\end{equation}
+其中 $Q$-动态为
+\begin{align}
+dS(u)&=rS(u)\,du+S(u)\sigma(u,S(u))\,dW(u),
+\tag{8.35}\\
+S(t)&=s,
+\tag{8.36}\\
+dZ(u)&=g(u,S(u))\,du,
+\tag{8.37}\\
+Z(t)&=z.
+\tag{8.38}
+\end{align}
+
+\textit{证明}~证明留作读者练习. 使用与定理 8.5 相同的技巧. \qed
+
+同样地, 我们再次看到, 一个或有权利的无套利价格由其收益的期望值贴现到当前时间给出. 与以前一样, 该期望应在鞅测度 $Q$ 下计算, 而不是在客观概率测度 $P$ 下. 正如我们之前所说, 这种套利定价的基本结构在更一般的情况下同样成立. 作为经验法则, 可以将鞅测度 $Q$ 看作是这样一个测度：所有已交易的基础资产在该测度下的收益率均为 $r$. 需要强调的是, 只有已交易的资产在 $Q$ 下才具有收益率 $r$. 对于包含未交易基础资产的模型, 我们会遇到完全不同的情形, 这将在下文讨论. 
+
+\section{完备性与无套利的关系}
+
+在本节中我们将给出一些经验性的判定规则, 用以快速判断某一模型是否完备及/或无套利. 论证将是启发式的. 
+
+考虑一个包含 $M$ 个已交易基础资产\textit{加上}一个无风险资产的模型(即共 $M+1$ 个资产). 我们假设基础资产的价格过程由 $R$ 个“随机源”驱动. 这里我们无法精确定义“随机源”的含义, 但典型的例子是驱动价格的 Wiener 过程. 例如, 若有五个独立的 Wiener 过程驱动价格, 则 $R=5$. 另一个例子是计数过程, 如泊松过程. 在这种情况下, 若价格由具有不同跳跃幅度的点过程驱动, 则相应的随机源的数量等于不同跳跃幅度的数量. 
+
+讨论完备性和无套利时, 重要的是认识到这两个概念朝相反方向工作. 设随机源数量 $R$ 固定. 那么, 每当向模型中加入新的基础资产(而不增加 $R$)时, 我们当然获得一个潜在的套利机会. 因此, 为使市场无套利, 基础资产的数量 $M$ 必须相对随机源的数量 $R$ 来说较小. 
+
+另一方面, 我们看到每当向模型中加入新的基础资产时, 我们就获得了复制给定或有权利的新可能性, 因此完备性要求 $M$ 相对于 $R$ 较大. 
+
+虽然我们无法严格地给出和证明一个精确的结果, 但下面的经验法则或称“元定理”是极为有用的. 在具体情况下, 它可以被精确地表述并证明. 参见第 10 和 14 章. 我们稍后将在处理非交易标的或利率理论问题时使用该元定理. 
+
+\medskip
+\noindent\textbf{元定理 8.3.1}~设 $M$ 表示模型中除无风险资产外的已交易基础资产数量, $R$ 表示随机源的数量. 一般来说, 我们有如下关系：
+\begin{enumerate}
+\item 当且仅当 $M\le R$ 时, 模型无套利；
+\item 当且仅当 $M\ge R$ 时, 模型完备；
+\item 当且仅当 $M=R$ 时, 模型既完备又无套利. 
+\end{enumerate}
+
+作为例子, 我们取 Black–Scholes 模型, 其中有一个基础资产 $S$ 以及一个无风险资产, 因此 $M=1$. 我们有一个驱动的 Wiener 过程, 因此 $R=1$, 从而事实上 $M=R$. 根据上述元定理, 我们预期 Black–Scholes 模型既无套利又完备, 而这确实是事实. 
+
+\section{练习}
+
+\noindent\textbf{练习 8.1}~考虑一个股票市场模型, 短期利率 $r$ 为确定常数. 我们关注某一只股票, 其价格过程为 $S$. 在客观概率测度 $P$ 下, $S$ 的动力学为
+\begin{equation}
+dS(t)=\alpha S(t)\,dt+\sigma S(t)\,dW(t)+\delta S(t-)\,dN(t)
+\tag{8.1.E1}
+\end{equation}
+这里 $W$ 是标准 Wiener 过程, 而 $N$ 是强度为 $\lambda$ 的 Poisson 过程. 我们假设 $\alpha,\sigma,\delta,\lambda$ 对我们已知. $dN$ 项应作如下解释：
+\begin{itemize}
+\item 在 Poisson 过程 $N$ 的跳时之间, $S$ 的行为与普通几何布朗运动相同；
+\item 若 $N$ 在时刻 $t$ 发生一次跳, 则这会使 $S$ 在 $t$ 时刻发生一次跳, $S$ 的跳大小为
+\[
+S(t)-S(t-)=\delta\cdot S(t-)
+\]
+\end{itemize}
+讨论下列问题：
+\begin{enumerate}\item[(a)] 模型是否无套利；
+\item[(b)] 模型是否完备；
+\item[(c)] 是否存在唯一的、例如对欧式看涨期权的无套利价格；
+\item[(d)] 假设你想复制一份到期于 1999 年 1 月的欧式看涨期权. 是否(理论上)可以仅用债券、该标的股票以及一份到期于 2001 年 12 月的欧式看涨期权组成的投资组合来复制它. 
+\end{enumerate}
+
+\noindent\textit{解答}~
+\begin{enumerate}\item[(a)] 以“元定理 8.3.1”为拇指法则. 交易的基础资产数 $M=1$(该股票), 随机源数 $R=2$($W$ 与 $N$). 当 $M\le R$ 时可无套利, 因此该模型可以是无套利的；
+\item[(b)] 完备性要求 $M\ge R$. 此处 $1<2$, 因此\emph{不完备}；
+\item[(c)] 在不完备市场中鞅测度不唯一, 跳风险的市场价格未被唯一固定, 因而一般\emph{不存在唯一的无套利价格}(例如欧式看涨)的唯一值；只能给出无套利价格区间或需引入额外定价原则；
+\item[(d)] 若允许交易债券、股票以及一份\emph{交易中的}远期到期的欧式看涨期权, 则可把该期权视作第二个交易资产. 此时 $M=2$, 而驱动仍为 $R=2$, 按照元定理, 有望得到\emph{完备性}. 因此从理论上讲, 可以用这三类资产复制较短到期的欧式看涨期权
+\end{enumerate}
+
+\medskip
+\noindent\textbf{练习 8.2}~在命题 8.6 的情形下, 使用 Feynman–Kač 技术推导一个风险中性估值公式. 
+
+\noindent\textit{解答}~命题 8.6 给出的 PDE 为
+\begin{equation}
+F_t + s r F_s + \tfrac{1}{2}s^2\sigma^2 F_{ss} + g F_z - rF = 0,\qquad F(T,s,z)=\Phi(s,z)
+\tag{8.2.E1}
+\end{equation}
+在测度 $Q$ 下
+\begin{equation}
+dS(u)=rS(u)\,du+S(u)\sigma(u,S(u))\,dW(u),\quad dZ(u)=g(u,S(u))\,du
+\tag{8.2.E2}
+\end{equation}
+应用 Feynman–Kač 表示得到
+\begin{equation}
+F(t,s,z)=e^{-r(T-t)}\,E_{t,s,z}^Q\big[\Phi\big(S(T),Z(T)\big)\big]
+\tag{8.2.E3}
+\end{equation}
+这即为所求的风险中性估值公式. 
+
+\medskip
+\noindent\textbf{练习 8.3}~公司 \textit{F\&H INC} 推出一项新衍生品 “the Mean”. 其“有效期”为 $[T_1,T_2]$, 在到期日 $T_2$ 时, 持有人得到的金额为
+\begin{equation}
+\frac{1}{T_2-T_1}\int_{T_1}^{T_2} S(u)\,du
+\tag{8.3.E1}
+\end{equation}
+确定该合约在时刻 $t$ 的无套利价格. 假设你处于标准 Black–Scholes 世界, 且 $t<T_1$. 
+
+\noindent\textit{解答}~在 $Q$ 下 $E^Q[S(u)\mid S(t)=s]=s\,e^{r(u-t)}$. 因此价格
+\begin{align}
+\Pi(t,s)
+&=e^{-r(T_2-t)}\,E_{t,s}^Q\!\left[\frac{1}{T_2-T_1}\int_{T_1}^{T_2} S(u)\,du\right]
+\notag\\
+&=\frac{e^{-r(T_2-t)}}{T_2-T_1}\int_{T_1}^{T_2} s\,e^{r(u-t)}\,du
+=\frac{s}{r(T_2-T_1)}\Big(1-e^{-r(T_2-T_1)}\Big)
+\tag{8.3.E2}
+\end{align}
+该结果与 $t$ 无关(只要 $t<T_1$). 
+
+\medskip
+\noindent\textbf{练习 8.4}~考虑标准 Black–Scholes 模型, $n$ 个不同的简单或有权利, 其合约函数为 $\Phi_1,\ldots,\Phi_n$. 令
+\begin{equation}
+V=\sum_{i=1}^n h_i(t)S_i(t)
+\tag{8.4.E1}
+\end{equation}
+表示一个自融资、Markov 型(见定义 6.2)投资组合的价值过程. 由于 Markov 假设, $V$ 可写成 $V=V\big(t,S(t)\big)$. 证明 $V$ 满足 Black–Scholes 方程. 
+
+\noindent\textit{解答}~令 $S=(S_1,\ldots,S_n)$, 在 $Q$ 下
+\[
+dS_i = r S_i\,dt + \sum_{k=1}^m \sigma_{ik} S_i\,dW_k,\qquad a_{ij}:=(\sigma\sigma^\top)_{ij}
+\]
+对 $V(t,S)$ 用伊藤公式：
+\[
+dV=\Big(V_t + r\sum_{i=1}^n s_i V_{s_i} + \tfrac{1}{2}\sum_{i,j=1}^n a_{ij}s_is_j V_{s_is_j}\Big)dt
++\sum_{k=1}^m\Big(\sum_{i=1}^n \sigma_{ik}s_i V_{s_i}\Big)dW_k
+\]
+自融资与无套利要求 $dV=rV\,dt+\sum_{i}h_i\,dS_i$ 的扩散项一致, 从而得到 PDE
+\begin{equation}
+V_t + r\sum_{i=1}^n s_i V_{s_i} + \tfrac{1}{2}\sum_{i,j=1}^n a_{ij}s_is_j V_{s_is_j} - rV = 0
+\tag{8.4.E2}
+\end{equation}
+这即为多维 Black–Scholes 方程；在一维情形下化为 $V_t + r s V_s + \tfrac{1}{2}\sigma^2 s^2 V_{ss} - rV=0$. 
+
+\section{注记}
+
+完备性在数学上与关于\emph{把鞅表示为随机积分之和}的若干深刻结果密切相关. 利用这一联系, 可以证明：当且仅当鞅测度是唯一的, 市场才是完备的. 较为详细的展开见第 10 章与第 14 章. 参见 Harrison and Pliska (1981) 以及 Musiela and Rutkowski (1997). 
+
 % \begin{chapterexercises}
 % \begin{exercise}
 % (练习 2.1)
@@ -761,152 +1803,152 @@ dV^h(t) = k(t)V^h(t)\,dt,
 % \end{chapternotes}
 
 % ========== Chapter 3 ==========
-\chapter{The Fundamental Theorem of Asset Pricing}
-\section{Martingales and Change of Measure}
-\section{Equivalent Martingale Measures}
-\section{Discounted Asset Prices}
-\section{Completeness and Martingale Representation}
-\section{Uniqueness of the Risk-Neutral Measure}
-\section{Change of Numeraire}
+% \chapter{The Fundamental Theorem of Asset Pricing}
+% \section{Martingales and Change of Measure}
+% \section{Equivalent Martingale Measures}
+% \section{Discounted Asset Prices}
+% \section{Completeness and Martingale Representation}
+% \section{Uniqueness of the Risk-Neutral Measure}
+% \section{Change of Numeraire}
 
-\begin{chapterexercises}
-\begin{exercise}
-(练习 3.1)
-\end{exercise}
-\begin{exercise}
-(练习 3.2)
-\end{exercise}
-\end{chapterexercises}
+% \begin{chapterexercises}
+% \begin{exercise}
+% (练习 3.1)
+% \end{exercise}
+% \begin{exercise}
+% (练习 3.2)
+% \end{exercise}
+% \end{chapterexercises}
 
-\begin{chapternotes}
-(Notes to Chapter 3)
-\end{chapternotes}
+% \begin{chapternotes}
+% (Notes to Chapter 3)
+% \end{chapternotes}
 
-% ========== Chapter 4 ==========
-\chapter{Interest Rate Models}
-\section{Zero-Coupon Bonds}
-\section{The Short Rate and the Money Account}
-\section{The Vasicek and CIR Models}
-\section{Forward Rate and Yield Curve}
-\section{The Heath–Jarrow–Morton Framework}
-\section{Change of Numeraire for Bonds}
+% % ========== Chapter 4 ==========
+% \chapter{Interest Rate Models}
+% \section{Zero-Coupon Bonds}
+% \section{The Short Rate and the Money Account}
+% \section{The Vasicek and CIR Models}
+% \section{Forward Rate and Yield Curve}
+% \section{The Heath–Jarrow–Morton Framework}
+% \section{Change of Numeraire for Bonds}
 
-\begin{chapterexercises}
-\begin{exercise}
-(练习 4.1)
-\end{exercise}
-\end{chapterexercises}
+% \begin{chapterexercises}
+% \begin{exercise}
+% (练习 4.1)
+% \end{exercise}
+% \end{chapterexercises}
 
-\begin{chapternotes}
-(Notes to Chapter 4)
-\end{chapternotes}
+% \begin{chapternotes}
+% (Notes to Chapter 4)
+% \end{chapternotes}
 
-% ========== Chapter 5 ==========
-\chapter{Stochastic Calculus Background}
-\section{Wiener Process and Stochastic Integrals}
-\section{Itô’s Lemma}
-\section{Multi-dimensional Itô Formula}
-\section{Martingales and Quadratic Variation}
-\section{Stochastic Differential Equations}
-\section{Numerical Schemes: Euler and Milstein}
+% % ========== Chapter 5 ==========
+% \chapter{Stochastic Calculus Background}
+% \section{Wiener Process and Stochastic Integrals}
+% \section{Itô’s Lemma}
+% \section{Multi-dimensional Itô Formula}
+% \section{Martingales and Quadratic Variation}
+% \section{Stochastic Differential Equations}
+% \section{Numerical Schemes: Euler and Milstein}
 
-\begin{chapterexercises}
-\begin{exercise}
-(练习 5.1)
-\end{exercise}
-\end{chapterexercises}
+% \begin{chapterexercises}
+% \begin{exercise}
+% (练习 5.1)
+% \end{exercise}
+% \end{chapterexercises}
 
-\begin{chapternotes}
-(Notes to Chapter 5)
-\end{chapternotes}
+% \begin{chapternotes}
+% (Notes to Chapter 5)
+% \end{chapternotes}
 
-% ========== Chapter 6 ==========
-\chapter{Optimal Portfolios and the CAPM}
-\section{Mean–Variance Optimization}
-\section{The Capital Market Line}
-\section{The CAPM Relation}
-\section{Continuous-Time Portfolio Optimization}
-\section{The Merton Problem}
-\section{Consumption and Investment}
+% % ========== Chapter 6 ==========
+% \chapter{Optimal Portfolios and the CAPM}
+% \section{Mean–Variance Optimization}
+% \section{The Capital Market Line}
+% \section{The CAPM Relation}
+% \section{Continuous-Time Portfolio Optimization}
+% \section{The Merton Problem}
+% \section{Consumption and Investment}
 
-\begin{chapterexercises}
-\begin{exercise}
-(练习 6.1)
-\end{exercise}
-\end{chapterexercises}
+% \begin{chapterexercises}
+% \begin{exercise}
+% (练习 6.1)
+% \end{exercise}
+% \end{chapterexercises}
 
-\begin{chapternotes}
-(Notes to Chapter 6)
-\end{chapternotes}
+% \begin{chapternotes}
+% (Notes to Chapter 6)
+% \end{chapternotes}
 
-% ========== Chapter 7 ==========
-\chapter{Incomplete Markets}
-\section{Sources of Incompleteness}
-\section{Equivalent Martingale Measures in Incomplete Markets}
-\section{Utility-Based Pricing}
-\section{Mean–Variance Hedging}
-\section{Minimal Martingale Measure}
-\section{Examples and Applications}
+% % ========== Chapter 7 ==========
+% \chapter{Incomplete Markets}
+% \section{Sources of Incompleteness}
+% \section{Equivalent Martingale Measures in Incomplete Markets}
+% \section{Utility-Based Pricing}
+% \section{Mean–Variance Hedging}
+% \section{Minimal Martingale Measure}
+% \section{Examples and Applications}
 
-\begin{chapterexercises}
-\begin{exercise}
-(练习 7.1)
-\end{exercise}
-\end{chapterexercises}
+% \begin{chapterexercises}
+% \begin{exercise}
+% (练习 7.1)
+% \end{exercise}
+% \end{chapterexercises}
 
-\begin{chapternotes}
-(Notes to Chapter 7)
-\end{chapternotes}
+% \begin{chapternotes}
+% (Notes to Chapter 7)
+% \end{chapternotes}
 
-% ========== Chapter 8 ==========
-\chapter{Foreign Exchange and Numeraire Change}
-\section{The FX Market and Forward Rates}
-\section{Change of Numeraire Technique}
-\section{Pricing Foreign Options}
-\section{Quanto and Currency Options}
-\section{Interest Rate Parity Revisited}
+% % ========== Chapter 8 ==========
+% \chapter{Foreign Exchange and Numeraire Change}
+% \section{The FX Market and Forward Rates}
+% \section{Change of Numeraire Technique}
+% \section{Pricing Foreign Options}
+% \section{Quanto and Currency Options}
+% \section{Interest Rate Parity Revisited}
 
-\begin{chapterexercises}
-\begin{exercise}
-(练习 8.1)
-\end{exercise}
-\end{chapterexercises}
+% \begin{chapterexercises}
+% \begin{exercise}
+% (练习 8.1)
+% \end{exercise}
+% \end{chapterexercises}
 
-\begin{chapternotes}
-(Notes to Chapter 8)
-\end{chapternotes}
+% \begin{chapternotes}
+% (Notes to Chapter 8)
+% \end{chapternotes}
 
-% ========== Chapter 9 ==========
-\chapter{Credit Risk and Defaultable Bonds}
-\section{Reduced Form Models}
-\section{Hazard Rate and Survival Probability}
-\section{Pricing Defaultable Zero-Coupon Bonds}
-\section{Credit Spreads}
-\section{Structural Models of Default}
-\section{Credit Derivatives}
+% % ========== Chapter 9 ==========
+% \chapter{Credit Risk and Defaultable Bonds}
+% \section{Reduced Form Models}
+% \section{Hazard Rate and Survival Probability}
+% \section{Pricing Defaultable Zero-Coupon Bonds}
+% \section{Credit Spreads}
+% \section{Structural Models of Default}
+% \section{Credit Derivatives}
 
-\begin{chapterexercises}
-\begin{exercise}
-(练习 9.1)
-\end{exercise}
-\end{chapterexercises}
+% \begin{chapterexercises}
+% \begin{exercise}
+% (练习 9.1)
+% \end{exercise}
+% \end{chapterexercises}
 
-\begin{chapternotes}
-(Notes to Chapter 9)
-\end{chapternotes}
+% \begin{chapternotes}
+% (Notes to Chapter 9)
+% \end{chapternotes}
 
-% ========== Chapter 10 ==========
-\chapter{Appendices and Mathematical Tools}
-\section{Measure and Integration}
-\section{Probability Theory Basics}
-\section{Conditional Expectation and Martingales}
-\section{Stopping Times and Optional Sampling}
-\section{Itô’s Calculus Summary}
-\section{Useful Formulas}
+% % ========== Chapter 10 ==========
+% \chapter{Appendices and Mathematical Tools}
+% \section{Measure and Integration}
+% \section{Probability Theory Basics}
+% \section{Conditional Expectation and Martingales}
+% \section{Stopping Times and Optional Sampling}
+% \section{Itô’s Calculus Summary}
+% \section{Useful Formulas}
 
-\begin{chapternotes}
-(General Mathematical Notes)
-\end{chapternotes}
+% \begin{chapternotes}
+% (General Mathematical Notes)
+% \end{chapternotes}
 
 % ===== 索引与术语 =====
 \printglossary[title=List of Symbols]
